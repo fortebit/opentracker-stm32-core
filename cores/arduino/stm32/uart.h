@@ -60,6 +60,7 @@
 #define ENABLE_HWSERIAL8
 #define ENABLE_HWSERIAL9
 #define ENABLE_HWSERIAL10
+#define ENABLE_HWSERIAL11
 #endif // FIRST_THIRD_HWSERIAL
 #endif // ALL_HWSERIAL || FIRST_THIRD_HWSERIAL
 #ifdef SERIAL_UART_INSTANCE
@@ -123,6 +124,12 @@
 #define Serial Serial10
 #define serialEvent serialEvent10
 #endif
+#elif SERIAL_UART_INSTANCE == 11
+#define ENABLE_HWSERIAL11
+#if !defined(Serial)
+#define Serial Serial11
+#define serialEvent serialEvent11
+#endif
 #endif // SERIAL_UART_INSTANCE == x
 #else
 #if !defined(Serial)
@@ -179,6 +186,11 @@
 #if defined(ENABLE_HWSERIAL10)
 #if defined(UART10_BASE)
 #define HAVE_HWSERIAL10
+#endif
+#endif
+#if defined(ENABLE_HWSERIAL11)
+#if defined(LPUART1_BASE)
+#define HAVE_HWSERIAL11
 #endif
 #endif
 

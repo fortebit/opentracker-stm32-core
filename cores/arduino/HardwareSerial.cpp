@@ -34,7 +34,7 @@
 #if defined(HAVE_HWSERIAL1) || defined(HAVE_HWSERIAL2) || defined(HAVE_HWSERIAL3) ||\
     defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
     defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL8) ||\
-    defined(HAVE_HWSERIAL10)
+    defined(HAVE_HWSERIAL10)|| defined(HAVE_HWSERIAL11)
 // SerialEvent functions are weak, so when the user doesn't define them,
 // the linker just sets their address to 0 (which is checked below).
 #if defined(HAVE_HWSERIAL1)
@@ -103,6 +103,11 @@
   void serialEvent10() __attribute__((weak));
 #endif
 
+#if defined(HAVE_HWSERIAL11)
+  HardwareSerial Serial11(LPUART1);
+  void serialEvent11() __attribute__((weak));
+#endif
+
 void serialEventRun(void)
 {
 #if defined(HAVE_HWSERIAL1)
@@ -133,7 +138,10 @@ void serialEventRun(void)
   if (serialEvent9 && Serial9.available()) serialEvent9();
 #endif
 #if defined(HAVE_HWSERIAL10)
-  if (serialEventl10 && Serial10.available()) serialEvent10();
+  if (serialEvent10 && Serial10.available()) serialEvent10();
+#endif
+#if defined(HAVE_HWSERIAL11)
+  if (serialEvent11 && Serial11.available()) serialEvent11();
 #endif
 }
 

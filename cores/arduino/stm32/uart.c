@@ -64,17 +64,30 @@
 #endif
 #endif
 // @brief uart caracteristics
-#if defined(STM32F4xx)
+#if defined(HAVE_HWSERIAL11)
+#define UART_NUM (11)
+#elif defined(HAVE_HWSERIAL10)
 #define UART_NUM (10)
-#elif defined(STM32F0xx) || defined(STM32F7xx)
+#elif defined(HAVE_HWSERIAL9)
+#define UART_NUM (9)
+#elif defined(HAVE_HWSERIAL8)
 #define UART_NUM (8)
-#elif defined(STM32F2xx)
+#elif defined(HAVE_HWSERIAL7)
+#define UART_NUM (7)
+#elif defined(HAVE_HWSERIAL6)
 #define UART_NUM (6)
-#elif defined(STM32F1xx) || defined(STM32F3xx) ||\
-      defined(STM32L0xx) || defined(STM32L1xx) || defined(STM32L4xx)
+#elif defined(HAVE_HWSERIAL5)
 #define UART_NUM (5)
+#elif defined(HAVE_HWSERIAL4)
+#define UART_NUM (4)
+#elif defined(HAVE_HWSERIAL3)
+#define UART_NUM (3)
+#elif defined(HAVE_HWSERIAL2)
+#define UART_NUM (2)
+#elif defined(HAVE_HWSERIAL1)
+#define UART_NUM (1)
 #else
-#error "Unknown Family - unknown UART_NUM"
+#error "Unknown UART_NUM"
 #endif
 
 static UART_HandleTypeDef *uart_handlers[UART_NUM] = {NULL};
@@ -234,6 +247,15 @@ void uart_init(serial_t *obj)
     obj->irq = UART10_IRQn;
   }
 #endif
+#if defined(LPUART1_BASE)
+  else if(obj->uart == LPUART1) {
+    __HAL_RCC_LPUART1_FORCE_RESET();
+    __HAL_RCC_LPUART1_RELEASE_RESET();
+    __HAL_RCC_LPUART1_CLK_ENABLE();
+    obj->index = 10;
+    obj->irq = LPUART1_IRQn;
+  }
+#endif
 
   //Configure GPIOs
   //RX
@@ -376,6 +398,13 @@ void uart_deinit(serial_t *obj)
         __HAL_RCC_UART10_FORCE_RESET();
         __HAL_RCC_UART10_RELEASE_RESET();
         __HAL_RCC_UART10_CLK_DISABLE();
+        break;
+#endif
+#if defined(LPUART1_BASE)
+    case 9:
+        __HAL_RCC_LPUART1_FORCE_RESET();
+        __HAL_RCC_LPUART1_RELEASE_RESET();
+        __HAL_RCC_LPUART1_CLK_DISABLE();
         break;
 #endif
 }
@@ -804,6 +833,19 @@ void UART10_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(UART10_IRQn);
   HAL_UART_IRQHandler(uart_handlers[9]);
+}
+#endif
+
+/**
+  * @brief  LPUART 1 IRQ handler
+  * @param  None
+  * @retval None
+  */
+#if defined(LPUART1_BASE)
+void LPUART1_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(LPUART1_IRQn);
+  HAL_UART_IRQHandler(uart_handlers[10]);
 }
 #endif
 
