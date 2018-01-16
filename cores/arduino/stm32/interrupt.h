@@ -43,8 +43,15 @@
 #include "stm32_def.h"
 #include "PinNames.h"
 
+#if defined(STM32F3xx)
+#define EXTI2_IRQn    EXTI2_TSC_IRQn
+#endif
+
 #ifdef __cplusplus
- extern "C" {
+#include <functional>
+
+typedef std::function<void(void)> callback_function_t;
+void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, callback_function_t callback, uint32_t mode);
 #endif
 
 /* Exported types ------------------------------------------------------------*/
@@ -53,9 +60,6 @@
 /* Exported functions ------------------------------------------------------- */
 void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(void), uint32_t mode);
 void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin);
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* __INTERRUPT_H */
 

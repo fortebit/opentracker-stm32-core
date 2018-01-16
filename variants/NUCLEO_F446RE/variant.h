@@ -35,136 +35,103 @@ extern "C"{
 extern const PinName digitalPin[];
 
 enum {
-  PG9,  //D0
-  PG14, //D1
-  PF15, //D2
-  PE13, //D3
-  PF14, //D4
-  PE11, //D5
-  PE9,  //D6
-  PF13, //D7
-  PF12, //D8
-  PD15, //D9
-  PD14, //D10
+  PA3,  //D0
+  PA2,  //D1
+  PA10, //D2
+  PB3,  //D3
+  PB5,  //D4
+  PB4,  //D5
+  PB10, //D6
+  PA8,  //D7
+  PA9,  //D8
+  PC7,  //D9
+  PB6,  //D10
   PA7,  //D11
   PA6,  //D12
-  PA5,  //D13
+  PA5,  //D13 - LD2
   PB9,  //D14
   PB8,  //D15
-  PC6,  //D16
-  PB15, //D17
-  PB13, //D18
-  PB12, //D19
-  PA15, //D20
-  PC7,  //D21
-  PB5,  //D22
-  PB3,  //D23
-  PA4,  //D24
-  PB4,  //D25
-  PB6,  //D26
-  PB2,  //D27
-  PD13, //D28
-  PD12, //D29
-  PD11, //D30
-  PE2,  //D31
-  PA0,  //D32
-  PB0,  //D33 - LEDGREEN
-  PE0,  //D34
-  PB11, //D35
-  PB10, //D36
-  PE15, //D37
-  PE14, //D38
-  PE12, //D39
-  PE10, //D40
-  PE7,  //D41
-  PE8,  //D42
-  PC8,  //D43
-  PC9,  //D44
-  PC10, //D45
-  PC11, //D46
-  PC12, //D47
-  PD2,  //D48
-  PG2,  //D49
-  PG3,  //D50
-  PD7,  //D51
-  PD6,  //D52
-  PD5,  //D53
-  PD4,  //D54
-  PD3,  //D55
-  PE2_2,//D56
-  PE4,  //D57
-  PE5,  //D58
-  PE6,  //D59
-  PE3,  //D60
-  PF8,  //D61
-  PF7,  //D62
-  PF9,  //D63
-  PG1,  //D64
-  PG0,  //D65
-  PD1,  //D66
-  PD0,  //D67
-  PF0,  //D68
-  PF1,  //D69
-  PF2,  //D70
-  PA7_2,//D71
-  NC_1, //D72
-  PB7,  //D73 - LEDBLUE
-  PB14, //D74 - LEDRED
-  PC13, //D75 - USERBTN
-  PD9,  //D76 - Serial Rx
-  PD8,  //D77 - Serial Tx
-  PA3,  //D78/A0
-  PC0,  //D79/A1
-  PC3,  //D80/A2
-  PF3,  //D81/A3
-  PF5,  //D82/A4
-  PF10, //D83/A5
-  PB1,  //D84/A6
-  PC2,  //D85/A7
-  PF4,  //D86/A8
-  PF6,  //D87/A9
+// ST Morpho
+// CN7 Left Side
+  PC10, //D16
+  PC12, //D17
+  NC_1, //D18 - BOOT0
+  PA13, //D19 - SWD
+  PA14, //D20 - SWD
+  PA15, //D21
+  PB7,  //D22
+  PC13, //D23 - USER_BTN
+  PC14, //D24 - NC by default SB49 opened
+  PC15, //D25 - NC by default SB48 opened
+  PH0,  //D26 - NC by default SB55 opened
+  PH1,  //D27
+  PC2,  //D28
+  PC3,  //D29
+// CN7 Right Side
+  PC11, //D30
+  PD2,  //D31
+// CN10 Left Side
+  PC9,  //D32
+// CN10 Right side
+  PC8,  //D33
+  PC6,  //D34
+  PC5,  //D35
+  PA12, //D36
+  PA11, //D37
+  PB12, //D38
+  NC_2, //D39
+  PB2,  //D40
+  PB1,  //D41
+  PB15, //D42
+  PB14, //D43
+  PB13, //D44
+  PC4,  //D45
+  PA0,  //D46/A0
+  PA1,  //D47/A1
+  PA4,  //D48/A2
+  PB0,  //D49/A3
+  PC1,  //D50/A4
+  PC0,  //D51/A5
   // Duplicated pins in order to be aligned with PinMapADC
-  PA7_3,  //D88/A10 = D11
-  PA6_2,  //D89/A11 = D12
-  PA5_2,  //D90/A12 = D13
-  PA4_2,  //D91/A13 = D24
-  PA0_2,  //D92/A14 = D32
-  PF8_2,  //D93/A15 = D61
-  PF7_2,  //D94/A16 = D62
-  PF9_2,  //D95/A17 = D63
+  PA7_2,//D52/A6  = D11
+  PA6_2,//D53/A7  = D12
+  PA5_2,//D54/A8  = D13
+  PC2_2,//D55/A9  = D28
+  PC3_2,//D56/A10 = D29
+  PC5_2,//D57/A11 = D35
+  PB1_2,//D58/A12 = D41
+  PC4_2,//D59/A13 = D45
   PEND
 };
 
 enum {
-  A_START_AFTER = D77,
+  A_START_AFTER = D45,
   A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
-  A10, A11, A12, A13, A14, A15, A16, A17,
+  A10, A11, A12, A13,
   AEND
 };
 
 // On-board LED pin number
-#define LED_BUILTIN             PB0
+#define LED_BUILTIN             13
+#define LED_LD2                 LED_BUILTIN
 #define LED_GREEN               LED_BUILTIN
-#define LED_BLUE                PB7
-#define LED_RED                 PB14
 
 // On-board user button
 #define USER_BTN                PC13
 
 // Timer Definitions
 // Do not use timer used by PWM pins when possible. See PinMap_PWM.
-#define TIMER_TONE              TIM6
+#define TIMER_TONE              TIM10
 
 // Do not use basic timer: OC is required
 #define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
 // UART Definitions
-#define SERIAL_UART_INSTANCE    3 //Connected to ST-Link
-
-// Serial pin used for console (ex: stlink)
-// Rerquired by Firmata
-#define PIN_SERIAL_RX           PD9
-#define PIN_SERIAL_TX           PD8
+#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
+// Default pin used for 'Serial' instance (ex: ST-Link)
+// Mandatory for Firmata
+#define PIN_SERIAL_RX           0
+#define PIN_SERIAL_TX           1
 
 #ifdef __cplusplus
 } // extern "C"

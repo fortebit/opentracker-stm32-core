@@ -146,6 +146,13 @@ void serialEventRun(void)
 }
 
 // Constructors ////////////////////////////////////////////////////////////////
+HardwareSerial::HardwareSerial(uint32_t _rx, uint32_t _tx)
+{
+  _serial.pin_rx = digitalPinToPinName(_rx);
+  _serial.pin_tx = digitalPinToPinName(_tx);
+  init();
+}
+
 HardwareSerial::HardwareSerial(PinName _rx, PinName _tx)
 {
   _serial.pin_rx = _rx;
@@ -228,7 +235,7 @@ void HardwareSerial::begin(unsigned long baud, byte config)
 
   _serial.baudrate = (uint32_t)baud;
 
-  // Manage databitshardware/arduino/avr/cores/arduino/HardwareSerial.cpp
+  // Manage databits
   switch(config & 0x07) {
     case 0x02:
       databits = 6;
