@@ -166,24 +166,24 @@ enum {
 #define ADC_RESOLUTION          12
 #define DACC_RESOLUTION         12
 
-//PWR resolution
+//PWM resolution
 #define PWM_RESOLUTION          8
 #define PWM_FREQUENCY           1000
 #define PWM_MAX_DUTY_CYCLE      255
 
 //On-board LED pin number
 #define LED_BUILTIN             PB2
-#define LED_GREEN               LED_BUILTIN
 
 //On-board user button
 #define USER_BTN                PE6 // SOS input
 
 
 //SPI definitions
-#define SS                      PB12
-#define MOSI                    PB15
-#define MISO                    PB14
-#define SCK                     PB13
+#define SS                      PE12 // OUT driver
+#define SS1                     PD10 // Accelerometer
+#define MOSI                    PE15
+#define MISO                    PE14
+#define SCK                     PE13
 
 //I2C Definitions
 #define SDA                     PB7
@@ -237,6 +237,8 @@ enum {
 //                            pins are NOT connected to anything by default.
 #define SERIAL_PORT_MONITOR     Serial
 #define SERIAL_PORT_HARDWARE    Serial
+#define SERIAL_PORT_HARDWARE_OPEN   Serial11
+#define SERIAL_PORT_HARDWARE_OPEN1  Serial3
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

@@ -567,7 +567,7 @@ Custom.pid.0=0x5711
 
 Custom.build.core=arduino
 Custom.build.board=Custom
-Custom.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Custom.build.extra_flags=-D{build.product_line} {build.enable_usb} -DALL_HWSERIAL
 
 # OPENTRACKER_V3 board
 # Support: ?????
@@ -599,15 +599,7 @@ Custom.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 Custom.menu.usb.CDC=CDC (if available)
 Custom.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
 
-# Serial
-Custom.menu.xserial.generic=Generic Serial
-Custom.menu.xserial.none=No Serial
-Custom.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-Custom.menu.xserial.all=All (up to 10)
-Custom.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-Custom.menu.xserial.third=Enable first third (USART1 to 3 if available)
-Custom.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
-
+# Optimizations
 Custom.menu.opt.osstd=Smallest (-Os default)
 Custom.menu.opt.osstd.build.flags.optimize=-Os
 Custom.menu.opt.osstd.build.flags.ldspecs=

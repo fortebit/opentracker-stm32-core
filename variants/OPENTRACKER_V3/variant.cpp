@@ -144,8 +144,6 @@ PC_3,
 extern "C" {
 #endif
 
-#define _Error_Handler(x,y)
-
 /**
   * @brief  System Clock Configuration
   * @param  None
