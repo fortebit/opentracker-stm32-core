@@ -1588,7 +1588,8 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
         }
         else
         {
-          HAL_PCD_EP_Receive(hpcd, ep->num, ep->xfer_buff, ep->xfer_len);
+          //HAL_PCD_EP_Receive(hpcd, ep->num, ep->xfer_buff, ep->xfer_len);
+          USB_EPStartXfer(hpcd->Instance, ep, hpcd->Init.dma_enable);
         }
         
       } /* if((wEPVal & EP_CTR_RX) */
