@@ -95,6 +95,9 @@
 #ifdef USBD_USE_HID_COMPOSITE
 static USBD_HandleTypeDef hUSBD_Device_HID;
 #endif //USBD_USE_HID_COMPOSITE
+#ifdef USBD_USE_CDC
+USBD_HandleTypeDef hUsbDeviceFS;
+#endif //USBD_USE_CDC
 /**
   * @}
   */
@@ -128,6 +131,18 @@ void usbd_interface_init(void)
   /* Start Device Process */
   USBD_Start(&hUSBD_Device_HID);
 #endif // USBD_USE_HID_COMPOSITE
+
+#ifdef USBD_USE_CDC
+  /* Init Device Library */
+  USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS);
+
+  /* Add Supported Class */
+  USBD_RegisterClass(&hUsbDeviceFS, USBD_CDC_CLASS);
+  USBD_CDC_RegisterInterface(&hUsbDeviceFS, &USBD_Interface_fops_FS);
+
+  /* Start Device Process */
+  USBD_Start(&hUsbDeviceFS);
+#endif // USBD_USE_CDC
 }
 
 /**

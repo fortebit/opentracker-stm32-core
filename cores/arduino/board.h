@@ -20,12 +20,14 @@ extern "C"{
 #include "twi.h"
 #include "uart.h"
 #include "uart_emul.h"
-#ifdef USBCON
-#include "usb_interface.h"
-#endif //USBCON
 
 void init( void ) ;
 #ifdef __cplusplus
 }
 #endif // __cplusplus
+
+#ifdef USBCON
+#include "usb_interface.h"
+#endif //USBCON
+
 #endif /* _BOARD_H_ */
