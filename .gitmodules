@@ -7,3 +7,6 @@
 [submodule "libraries/QSPI_Flash"]
 	path = libraries/QSPI_Flash
 	url = https://github.com/geolink/MX25R6435F.git
+[submodule "libraries/TinyGPS"]
+	path = libraries/TinyGPS
+	url = https://github.com/geolink/TinyGPS.git
