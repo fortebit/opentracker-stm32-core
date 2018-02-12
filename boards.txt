@@ -567,7 +567,7 @@ Custom.pid.0=0x5711
 
 Custom.build.core=arduino
 Custom.build.board=Custom
-Custom.build.extra_flags=-D{build.product_line} {build.enable_usb} -DALL_HWSERIAL
+Custom.build.extra_flags=-D{build.product_line} {build.enable_usb} -DALL_HWSERIAL -DOPENTRACKER_HW_REV=0x0300
 
 # OPENTRACKER_V3 board
 # Support: ?????
