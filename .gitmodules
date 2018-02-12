@@ -1,0 +1,6 @@
+[submodule "libraries/STM32SD"]
+	path = libraries/STM32SD
+	url = https://github.com/geolink/STM32SD.git
+[submodule "libraries/FatFs"]
+	path = libraries/FatFs
+	url = https://github.com/geolink/FatFs.git
