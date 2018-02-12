@@ -10,3 +10,6 @@
 [submodule "libraries/TinyGPS"]
 	path = libraries/TinyGPS
 	url = https://github.com/geolink/TinyGPS.git
+[submodule "libraries/DueFlashStorage"]
+	path = libraries/DueFlashStorage
+	url = https://github.com/geolink/DueFlashStorage.git
