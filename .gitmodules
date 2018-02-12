@@ -4,3 +4,6 @@
 [submodule "libraries/FatFs"]
 	path = libraries/FatFs
 	url = https://github.com/geolink/FatFs.git
+[submodule "libraries/QSPI_Flash"]
+	path = libraries/QSPI_Flash
+	url = https://github.com/geolink/MX25R6435F.git
