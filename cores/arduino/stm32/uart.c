@@ -702,12 +702,12 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
   UNUSED(tmpval);
 }
 
+#if defined(USART1_BASE) && defined(ENABLE_HWSERIAL1)
 /**
   * @brief  USART 1 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(USART1_BASE)
 void USART1_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART1_IRQn);
@@ -715,12 +715,12 @@ void USART1_IRQHandler(void)
 }
 #endif
 
+#if defined(USART2_BASE) && defined(ENABLE_HWSERIAL2)
 /**
   * @brief  USART 2 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(USART2_BASE)
 void USART2_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART2_IRQn);
@@ -728,68 +728,80 @@ void USART2_IRQHandler(void)
 }
 #endif
 
+/*
+Ideally we should extend the following test to cover all possible combinations.
+Worst case is when no serial is enabled: function will be defined but almost empty.
+*/
+#if defined(USART3_BASE)
 /**
   * @brief  USART 3 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(USART3_BASE)
 void USART3_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART3_IRQn);
 #if defined(STM32F091xC) || defined (STM32F098xx)
+#if defined(ENABLE_HWSERIAL3)
   if (__HAL_GET_PENDING_IT(HAL_ITLINE_USART3)!= RESET)
-  {
     HAL_UART_IRQHandler(uart_handlers[2]);
-  }
+#endif
+#if defined(ENABLE_HWSERIAL4)
   if (__HAL_GET_PENDING_IT(HAL_ITLINE_USART4)!= RESET)
-  {
-     HAL_UART_IRQHandler(uart_handlers[3]);
-  }
+    HAL_UART_IRQHandler(uart_handlers[3]);
+#endif
+#if defined(ENABLE_HWSERIAL5)
   if (__HAL_GET_PENDING_IT(HAL_ITLINE_USART5)!= RESET)
-  {
-     HAL_UART_IRQHandler(uart_handlers[4]);
-  }
+    HAL_UART_IRQHandler(uart_handlers[4]);
+#endif
+#if defined(ENABLE_HWSERIAL6)
   if (__HAL_GET_PENDING_IT(HAL_ITLINE_USART6)!= RESET)
-  {
-     HAL_UART_IRQHandler(uart_handlers[5]);
-  }
+    HAL_UART_IRQHandler(uart_handlers[5]);
+#endif
+#if defined(ENABLE_HWSERIAL7)
   if (__HAL_GET_PENDING_IT(HAL_ITLINE_USART7)!= RESET)
-  {
-     HAL_UART_IRQHandler(uart_handlers[6]);
-  }
+    HAL_UART_IRQHandler(uart_handlers[6]);
+#endif
+#if defined(ENABLE_HWSERIAL8)
   if (__HAL_GET_PENDING_IT(HAL_ITLINE_USART8)!= RESET)
-  {
-     HAL_UART_IRQHandler(uart_handlers[7]);
-  }
+    HAL_UART_IRQHandler(uart_handlers[7]);
+#endif
 #else
+#if defined(ENABLE_HWSERIAL3)
   if(uart_handlers[2] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[2]);
   }
+#endif
 #if defined(STM32F0xx)
 // USART3_4_IRQn
+#if defined(ENABLE_HWSERIAL4)
   if(uart_handlers[3] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[3]);
   }
+#endif
 #if defined(STM32F030xC)
+#if defined(ENABLE_HWSERIAL5)
   if(uart_handlers[4] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[4]);
   }
+#endif
+#if defined(ENABLE_HWSERIAL6)
   if(uart_handlers[5] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[5]);
   }
+#endif
 #endif // STM32F030xC
 #endif // STM32F0xx
 #endif // STM32F091xC || STM32F098xx
 }
 #endif
 
+#if defined(UART4_BASE) && defined(ENABLE_HWSERIAL4)
 /**
   * @brief  UART 4 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(UART4_BASE)
 void UART4_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(UART4_IRQn);
@@ -797,32 +809,37 @@ void UART4_IRQHandler(void)
 }
 #endif
 
+#if defined(STM32L0xx)
+#if (defined(USART4_BASE) && defined(ENABLE_HWSERIAL4)) \
+  || (defined(USART5_BASE) && defined(ENABLE_HWSERIAL5))
 /**
   * @brief  USART 4/5 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(STM32L0xx)
-#if defined(USART4_BASE) || defined(USART5_BASE)
 void USART4_5_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART4_IRQn);
+#if defined(ENABLE_HWSERIAL4)
   if(uart_handlers[3] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[3]);
   }
+#endif
+#if defined(ENABLE_HWSERIAL5)
   if(uart_handlers[4] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[4]);
   }
+#endif
 }
 #endif
 #endif
 
+#if defined(UART5_BASE) && defined(ENABLE_HWSERIAL5)
 /**
   * @brief  USART 5 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(UART5_BASE)
 void UART5_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(UART5_IRQn);
@@ -830,12 +847,12 @@ void UART5_IRQHandler(void)
 }
 #endif
 
+#if defined(USART6_BASE) && defined(ENABLE_HWSERIAL6) && !defined(STM32F0xx)
 /**
   * @brief  USART 6 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(USART6_BASE) && !defined(STM32F0xx)
 void USART6_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART6_IRQn);
@@ -843,12 +860,12 @@ void USART6_IRQHandler(void)
 }
 #endif
 
+#if defined(UART7_BASE) && defined(ENABLE_HWSERIAL7)
 /**
   * @brief  UART 7 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(UART7_BASE)
 void UART7_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(UART7_IRQn);
@@ -856,12 +873,12 @@ void UART7_IRQHandler(void)
 }
 #endif
 
+#if defined(UART8_BASE) && defined(ENABLE_HWSERIAL8)
 /**
   * @brief  UART 8 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(UART8_BASE)
 void UART8_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(UART8_IRQn);
@@ -869,12 +886,12 @@ void UART8_IRQHandler(void)
 }
 #endif
 
+#if defined(UART9_BASE) && defined(ENABLE_HWSERIAL9)
 /**
   * @brief  UART 9 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(UART9_BASE)
 void UART9_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(UART9_IRQn);
@@ -882,12 +899,12 @@ void UART9_IRQHandler(void)
 }
 #endif
 
+#if defined(UART10_BASE) && defined(ENABLE_HWSERIAL10)
 /**
   * @brief  UART 10 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(UART10_BASE)
 void UART10_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(UART10_IRQn);
@@ -895,12 +912,12 @@ void UART10_IRQHandler(void)
 }
 #endif
 
+#if defined(LPUART1_BASE) && defined(ENABLE_HWSERIAL11)
 /**
   * @brief  LPUART 1 IRQ handler
   * @param  None
   * @retval None
   */
-#if defined(LPUART1_BASE)
 void LPUART1_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(LPUART1_IRQn);
