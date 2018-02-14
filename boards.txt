@@ -569,7 +569,6 @@ Custom.menu.pnum.OPENTRACKER_V3.node=""
 Custom.menu.pnum.OPENTRACKER_V3.upload.maximum_size=131072
 Custom.menu.pnum.OPENTRACKER_V3.upload.maximum_data_size=65536
 Custom.menu.pnum.OPENTRACKER_V3.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Custom.menu.pnum.OPENTRACKER_V3.build.f_cpu=80000000L
 Custom.menu.pnum.OPENTRACKER_V3.build.board=OPENTRACKER_V3
 Custom.menu.pnum.OPENTRACKER_V3.build.series=STM32L4xx
 Custom.menu.pnum.OPENTRACKER_V3.build.product_line=STM32L433xx

@@ -35,7 +35,7 @@
  *        Headers
  *----------------------------------------------------------------------------*/
 
-#include "pins_arduino.h"
+#include "PeripheralPins.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -151,16 +151,27 @@ PC3_2,
 
   PEND
 };
-// Enum defining Arduino style alias for analog pin number --> Ax
+
+// This must be a literal with the same value as PEND
+// It is used with preprocessor tests (e.g. #if NUM_DIGITAL_PINS > 3)
+// so an enum will not work.
+#define NUM_DIGITAL_PINS        92
+
+// Allow to define Arduino style alias for analog input pin number --> Ax
+// All pins are digital, analog inputs are a subset of digital pins
+// and must be contiguous to be able to loop on each value
+// This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
+// defined in pin_arduino.h
+// It is used with preprocessor tests (e.g. #if NUM_ANALOG_INPUTS > 3)
+// so an enum will not work.
 // !!!
 // !!! It must be aligned with the number of analog PinName
 // !!! defined in digitalPin[] array in variant.cpp
 // !!!
-enum {
-  A_START_AFTER = PE1, // pin number preceding A0
-  A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8, 
-  AEND
-};
+#define NUM_ANALOG_INPUTS       9
+// Define digital pin number of the first analog input  (i.e. which digital pin is A0)
+// First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS
+#define NUM_ANALOG_FIRST        83
 
 //ADC resolution is 12bits
 #define ADC_RESOLUTION          12
@@ -179,15 +190,15 @@ enum {
 
 
 //SPI definitions
-#define SS                      PE12 // OUT driver
-#define SS1                     PD10 // Accelerometer
-#define MOSI                    PE15
-#define MISO                    PE14
-#define SCK                     PE13
+#define PIN_SPI_SS              PE12 // OUT driver
+#define PIN_SPI_SS1             PD10 // Accelerometer
+#define PIN_SPI_MOSI            PE15
+#define PIN_SPI_MISO            PE14
+#define PIN_SPI_SCK             PE13
 
 //I2C Definitions
-#define SDA                     PB7
-#define SCL                     PB6
+#define PIN_WIRE_SDA            PB7
+#define PIN_WIRE_SCL            PB6
 
 //Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
@@ -199,18 +210,24 @@ enum {
 
 // UART Definitions
 // Define here Serial instance number to map on Serial generic name
+#ifdef USBD_USE_CDC
+#define Serial SerialUSB
+#else
 #define SERIAL_UART_INSTANCE    3 //ex: 2 for Serial2 (USART2)
-// DEBUG_UART could be redefined to print on another instance than 'Serial'
-#define DEBUG_UART              ((USART_TypeDef *) USART3) // ex: USART3
-
-// UART Emulation (uncomment if needed, required TIM1)
-//#define UART_EMUL_RX            PX_n // PinName used for RX
-//#define UART_EMUL_TX            PX_n // PinName used for TX
-
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PD9
 #define PIN_SERIAL_TX           PD8
+#endif
+
+// DEBUG_UART could be redefined to print on another instance than 'Serial'
+//#define DEBUG_UART              ((USART_TypeDef *) USART3) // ex: USART3
+#define DEBUG_UART              NP
+#define DEBUG_PINNAME_TX        NC
+
+// UART Emulation (uncomment if needed, required TIM1)
+//#define UART_EMUL_RX            PX_n // PinName used for RX
+//#define UART_EMUL_TX            PX_n // PinName used for TX
 
 #ifdef __cplusplus
 } // extern "C"
