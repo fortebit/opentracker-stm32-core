@@ -132,17 +132,39 @@ class HardwareSerial : public Stream
     void init(void);
 };
 
+#if defined(HAVE_HWSERIAL1)
 extern HardwareSerial Serial1;
+#endif
+#if defined(HAVE_HWSERIAL2)
 extern HardwareSerial Serial2;
+#endif
+#if defined(HAVE_HWSERIAL3)
 extern HardwareSerial Serial3;
+#endif
+#if defined(HAVE_HWSERIAL4)
 extern HardwareSerial Serial4;
+#endif
+#if defined(HAVE_HWSERIAL5)
 extern HardwareSerial Serial5;
+#endif
+#if defined(HAVE_HWSERIAL6)
 extern HardwareSerial Serial6;
+#endif
+#if defined(HAVE_HWSERIAL7)
 extern HardwareSerial Serial7;
+#endif
+#if defined(HAVE_HWSERIAL8)
 extern HardwareSerial Serial8;
+#endif
+#if defined(HAVE_HWSERIAL9)
 extern HardwareSerial Serial9;
+#endif
+#if defined(HAVE_HWSERIAL10)
 extern HardwareSerial Serial10;
+#endif
+#if defined(HAVE_HWSERIAL11)
 extern HardwareSerial Serial11;
+#endif
 
 extern void serialEventRun(void) __attribute__((weak));
 
