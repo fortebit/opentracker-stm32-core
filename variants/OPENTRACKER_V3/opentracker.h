@@ -22,14 +22,14 @@
 
 #define PIN_C_IN1_PD    PE8
 #define PIN_C_IN2_PD    PE7
-#define ANALOG_VREF     2.5
+#define ANALOG_VREF     2.50f
 
 #define AIN_EXT_IN1     PA1
 #define AIN_EXT_IN2     PA3
 #define AIN_EXT_IN3     PC0
 #define AIN_EXT_IN4     PC1
 
-#define MODEM_VBAT      4.06
+#define MODEM_VBAT      4.06f
 #define MODEM_UG96      1
 
 /* OpenTracker PINS 
