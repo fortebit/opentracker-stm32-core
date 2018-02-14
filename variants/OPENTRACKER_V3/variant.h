@@ -258,4 +258,6 @@ PC3_2,
 #define SERIAL_PORT_HARDWARE_OPEN1  Serial3
 #endif
 
+#include "opentracker.h"
+
 #endif /* _VARIANT_ARDUINO_STM32_ */
