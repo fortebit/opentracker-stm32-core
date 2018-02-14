@@ -16,8 +16,8 @@ compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
 compiler.warning_flags.default=
-compiler.warning_flags.more=-Wall
-compiler.warning_flags.all=-Wall -Wextra
+compiler.warning_flags.more=-Wall -Wdouble-promotion
+compiler.warning_flags.all=-Wall -Wextra -Wdouble-promotion
 
 compiler.path={runtime.tools.arm-none-eabi-gcc.path}/bin/
 
