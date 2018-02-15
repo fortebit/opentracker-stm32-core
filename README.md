@@ -1,71 +1,16 @@
-# Arduino core support for STM32 based boards
-### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/2018.1.18.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2018.1.18...master)
+# OpenTracker v3 - Arduino Core (STM32 Architecture) [![GitHub release](https://img.shields.io/github/release/geolink/opentracker-stm32-core.svg)](https://github.com/geolink/opentracker-stm32-core/releases/latest)
 
-* [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started)<br>
-* [Boards available](https://github.com/stm32duino/Arduino_Core_STM32#boards-available)<br>
-* [Troubleshooting](https://github.com/stm32duino/Arduino_Core_STM32#troubleshooting)<br>
-* [Wiki](https://github.com/stm32duino/wiki/wiki/)
+This repository contains the source code and configuration files of the Arduino Core for STMicroelectronics's STM32 Series of microcontrollers and board support files for the [OpenTracker v3](https://geolink.io/opentracker.php) board.
 
-## Getting Started
+## Installation on Arduino IDE
 
-This repo is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores).
+This core is included in the [OpenTracker Board Manager](https://github.com/geolink/opentracker-arduino-board) package. Please refer to that page for installation instructions.
 
-For full instructions on using the "**Boards Manager**", see the [Getting Started](https://github.com/stm32duino/wiki/wiki/Getting-Started) page.
+## Development with Git
 
-For advanced user, you can use the repository: see the [Using git repository](https://github.com/stm32duino/wiki/wiki/Using-git-repository) page.
+This repository references other projects (mainly libraries) as Git sub-modules. To setup your local copy of the repository make sure to run (from the repository root directory):
 
-## Boards available
-### Current release
-  * STM32F0
-    * [Nucleo F030R8](http://www.st.com/en/evaluation-tools/nucleo-f030r8.html)
-    * [Nucleo F091RC](http://www.st.com/en/evaluation-tools/nucleo-f091rc.html)
-
-  * STM32F1
-    * [Nucleo F103RB](http://www.st.com/en/evaluation-tools/nucleo-f103rb.html)
-    * [STM32VLDISCOVERY](https://community.st.com/external-link.jspa?url=http%3A%2F%2Fwww.st.com%2Fen%2Fevaluation-tools%2Fstm32vldiscovery.html)
-
-  * STM32F2
-    * [Nucleo F207ZG](http://www.st.com/en/evaluation-tools/nucleo-f207zg.html)
-
-  * STM32F3
-    * [Nucleo F302R8](http://www.st.com/en/evaluation-tools/nucleo-f302r8.html)
-    * [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html)
-    * [Nucleo F303RE](http://www.st.com/en/evaluation-tools/nucleo-f303re.html)
- 
-  * STM32F4
-    * [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html)
-    * [Nucleo F411RE](http://www.st.com/en/evaluation-tools/nucleo-f411re.html)
-    * [Nucleo F429ZI](http://www.st.com/en/evaluation-tools/nucleo-f429zi.html)
-    * [Nucleo F446RE](http://www.st.com/en/evaluation-tools/nucleo-f446re.html)
-    * [STM32F407G-DISC1](http://www.st.com/en/evaluation-tools/stm32f4discovery.html)
-
-  * STM32F7
-    * [STM32F746G-DISCOVERY](http://www.st.com/en/evaluation-tools/32f746gdiscovery.html)
-
-  * STM32L0
-    * [Nucleo L031K6](http://www.st.com/en/evaluation-tools/nucleo-l031k6.html)
-    * [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html)
-    * [B-L072Z-LRWAN1](http://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html)
-
-  * STM32L1
-    * [Nucleo L152RE](http://www.st.com/en/evaluation-tools/nucleo-l152re.html)
-
-  * STM32L4
-    * [Nucleo L432KC](http://www.st.com/en/evaluation-tools/nucleo-l432kc.html)
-    * [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html)
-    * [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html)
-
-### Next release
-  * STM32F1
-    * BluePill F103C8 (on going)
-    * MapleMini F103CB (on going)
-
-## Troubleshooting
-
-If you have any issue, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
-
-Or submit a topic on the [stm32duino forum](http://stm32duino.com):
-
- * questions on the [STM32 Core](http://stm32duino.com/viewforum.php?f=48)
-
- * bugs/enhancements on the [STM core: Bugs and enhancements](http://stm32duino.com/viewforum.php?f=49)
+```
+git submodule init
+git submodule update --recursive
+```
