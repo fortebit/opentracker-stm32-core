@@ -13,3 +13,6 @@
 [submodule "libraries/DueFlashStorage"]
 	path = libraries/DueFlashStorage
 	url = https://github.com/geolink/DueFlashStorage.git
+[submodule "libraries/STM32RTC"]
+	path = libraries/STM32RTC
+	url = https://github.com/geolink/STM32RTC.git
