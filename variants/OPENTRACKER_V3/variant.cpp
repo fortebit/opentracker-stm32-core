@@ -152,6 +152,33 @@ void HAL_MspInit(void)
   __HAL_RCC_SYSCFG_CLK_ENABLE();
   __HAL_RCC_PWR_CLK_ENABLE();
 
+  /* If we are back from Backup mode, make sure the RTC output is disabled, so
+      that the main regulator will not be disabled again in endless loop */
+
+  HAL_PWR_EnableBkUpAccess();
+
+  __HAL_RCC_RTCAPB_CLK_ENABLE();
+
+  /* Unlock RTC and Clear OSEL -> Disable RTC Output connected to PC13 */
+  WRITE_REG(RTC->WPR, 0xCA);
+  WRITE_REG(RTC->WPR, 0x53);
+  CLEAR_BIT(RTC->CR, RTC_CR_OSEL);
+  WRITE_REG(RTC->WPR, 0xFF);
+
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  
+  /* Configure PC13 as output low (enable main regulator) */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+
+  GPIO_InitTypeDef GPIO_InitStruct;
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /* End of recovery from Backup mode */
+
   HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
   /* System interrupt init*/
