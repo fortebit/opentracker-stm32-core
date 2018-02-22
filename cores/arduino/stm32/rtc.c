@@ -184,12 +184,6 @@ void RTC_init(hourFormat_t format, sourceClock_t source)
 
   HAL_RTC_Init( &RtcHandle );
 
-  /*Sunday 1st January 2017*/
-  RTC_SetDate(17, 1, 1, 7);
-
-  /*at 0:0:0*/
-  RTC_SetTime(0,0,0,0,AM);
-
 #if !defined(STM32F1xx) && !defined(STM32F2xx)
   /*Enable Direct Read of the calendar registers (not through Shadow) */
   HAL_RTCEx_EnableBypassShadow(&RtcHandle);
