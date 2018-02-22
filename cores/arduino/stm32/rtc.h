@@ -164,7 +164,7 @@ void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *s
 void RTC_SetDate(uint8_t year, uint8_t month, uint8_t date, uint8_t day);
 void RTC_GetDate(uint8_t *year, uint8_t *month, uint8_t *date, uint8_t *day);
 
-void RTC_StartAlarm(uint8_t date, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t format);
+void RTC_StartAlarm(uint8_t date, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t format, uint32_t mask);
 void RTC_StopAlarm(void);
 void RTC_GetAlarm(uint8_t *date, uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *format);
 void attachAlarmCallback(voidCallbackPtr func, void *data);

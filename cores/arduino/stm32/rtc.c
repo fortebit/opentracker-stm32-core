@@ -338,7 +338,7 @@ void RTC_GetDate(uint8_t *year, uint8_t *month, uint8_t *date, uint8_t *day)
   * @param hours format: AM or PM if in 12 hours mode else ignored.
   * @retval None
   */
-void RTC_StartAlarm(uint8_t date, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t format)
+void RTC_StartAlarm(uint8_t date, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t format, uint32_t mask)
 {
   RTC_AlarmTypeDef RTC_AlarmStructure;
 
@@ -348,7 +348,7 @@ void RTC_StartAlarm(uint8_t date, uint8_t hours, uint8_t minutes, uint8_t second
   }
 
   if((((initFormat == HOUR_FORMAT_24) && IS_RTC_HOUR24(hours)) || IS_RTC_HOUR12(hours))
-    && IS_RTC_DATE(date) && IS_RTC_MINUTES(minutes) && IS_RTC_SECONDS(seconds)) {
+    && IS_RTC_DATE(date) && IS_RTC_MINUTES(minutes) && IS_RTC_SECONDS(seconds) && IS_RTC_ALARM_MASK(mask)) {
     /* Set RTC_AlarmStructure with calculated values*/
     RTC_AlarmStructure.Alarm = RTC_ALARM_A; //Use alarm A by default because it is common to all STM32 HAL.
     RTC_AlarmStructure.AlarmTime.Seconds = seconds;
@@ -373,7 +373,7 @@ void RTC_StartAlarm(uint8_t date, uint8_t hours, uint8_t minutes, uint8_t second
     RTC_AlarmStructure.AlarmTime.StoreOperation = RTC_STOREOPERATION_RESET;
     RTC_AlarmStructure.AlarmDateWeekDay = date;
     RTC_AlarmStructure.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
-    RTC_AlarmStructure.AlarmMask = RTC_ALARMMASK_NONE;
+    RTC_AlarmStructure.AlarmMask = mask;
 #else
     UNUSED(subSeconds);
     UNUSED(format);
