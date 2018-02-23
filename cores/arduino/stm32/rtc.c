@@ -211,8 +211,10 @@ void RTC_DeInit(void)
 void RTC_SetOutput(uint32_t outMode, uint32_t outPolarity, uint32_t outTypePushPull)
 {
   RtcHandle.Init.OutPut = outMode;
+#if !defined(STM32F1xx)
   RtcHandle.Init.OutPutPolarity = outPolarity ? RTC_OUTPUT_POLARITY_HIGH : RTC_OUTPUT_POLARITY_LOW;
   RtcHandle.Init.OutPutType = outTypePushPull ? RTC_OUTPUT_TYPE_PUSHPULL : RTC_OUTPUT_TYPE_OPENDRAIN;
+#endif
   HAL_RTC_Init( &RtcHandle );
 }
 
