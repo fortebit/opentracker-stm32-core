@@ -146,9 +146,6 @@ void RTC_init(hourFormat_t format, sourceClock_t source)
 {
   initFormat = format;
 
-  // After DFU "go" command the RTC APB Clock is disabled. Make sure it's enabled!
-  __HAL_RCC_RTCAPB_CLK_ENABLE();
-
   // Set RTC clock
   RTC_setClock(source);
 
