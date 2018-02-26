@@ -44,6 +44,10 @@ opentracker_3.menu.modem.BG96=BG96 (LWPA/NB-IoT 2.5G/4G)
 opentracker_3.menu.modem.BG96.build.modem_flags=-DMODEM_BG96=1
 
 # Upload menu
+opentracker_3.menu.upload_method.STM32CubeDFU=STM32CubeProgrammer (DFU)
+opentracker_3.menu.upload_method.STM32CubeDFU.upload.protocol=DFU
+opentracker_3.menu.upload_method.STM32CubeDFU.upload.tool=stm32cube_dfu
+opentracker_3.menu.upload_method.STM32CubeDFU.upload.use_1200bps_touch=true
 opentracker_3.menu.upload_method.STLink=STLink
 opentracker_3.menu.upload_method.STLink.upload.protocol=STLink
 opentracker_3.menu.upload_method.STLink.upload.tool=stlink_upload

@@ -154,3 +154,15 @@ tools.stlink_upload.path.linux64={runtime.tools.STM32Tools.path}/tools/linux64
 tools.stlink_upload.upload.params.verbose=-d
 tools.stlink_upload.upload.params.quiet=
 tools.stlink_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
+
+# STM32CubeProgrammer DFU upload
+tools.stm32cube_dfu.cmd=STM32_Programmer.sh
+tools.stm32cube_dfu.cmd.windows=STM32_Programmer_CLI.exe
+tools.stm32cube_dfu.cmd.macosx=STM32_Programmer_CLI
+tools.stm32cube_dfu.path.windows=C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin
+tools.stm32cube_dfu.path.macosx=/Applications/STMicroelectronics/STM32Cube/STM32CubeProgrammer/STM32CubeProgrammer.app/Contents/MacOs/bin
+tools.stm32cube_dfu.path.linux=/usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin
+tools.stm32cube_dfu.path.linux64=/usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin
+tools.stm32cube_dfu.upload.params.verbose=-vb2
+tools.stm32cube_dfu.upload.params.quiet=
+tools.stm32cube_dfu.upload.pattern="{path}/{cmd}" -c port=usb1 -e all -d "{build.path}/{build.project_name}.hex" -v -g
