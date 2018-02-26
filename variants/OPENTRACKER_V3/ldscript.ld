@@ -89,39 +89,40 @@ SECTIONS
   . = ALIGN(8);
   } >FLASH
   .ARM : {
-	. = ALIGN(8);
+  . = ALIGN(8);
     __exidx_start = .;
     *(.ARM.exidx*)
     __exidx_end = .;
-	. = ALIGN(8);
+  . = ALIGN(8);
   } >FLASH
 
   .preinit_array     :
   {
-	. = ALIGN(8);
+  . = ALIGN(8);
     PROVIDE_HIDDEN (__preinit_array_start = .);
     KEEP (*(.preinit_array*))
     PROVIDE_HIDDEN (__preinit_array_end = .);
-	. = ALIGN(8);
+  . = ALIGN(8);
   } >FLASH
   
   .init_array :
   {
-	. = ALIGN(8);
+  . = ALIGN(8);
     PROVIDE_HIDDEN (__init_array_start = .);
     KEEP (*(SORT(.init_array.*)))
     KEEP (*(.init_array*))
     PROVIDE_HIDDEN (__init_array_end = .);
-	. = ALIGN(8);
+  . = ALIGN(8);
   } >FLASH
+  
   .fini_array :
   {
-	. = ALIGN(8);
+  . = ALIGN(8);
     PROVIDE_HIDDEN (__fini_array_start = .);
     KEEP (*(SORT(.fini_array.*)))
     KEEP (*(.fini_array*))
     PROVIDE_HIDDEN (__fini_array_end = .);
-	. = ALIGN(8);
+  . = ALIGN(8);
   } >FLASH
 
   /* used by the startup to initialize data */
@@ -141,9 +142,9 @@ SECTIONS
 
   
   /* Uninitialized data section */
-  . = ALIGN(4);
   .bss :
   {
+    . = ALIGN(4);
     /* This is used by the startup in order to initialize the .bss secion */
     _sbss = .;         /* define a global symbol at bss start */
     __bss_start__ = _sbss;
@@ -156,6 +157,15 @@ SECTIONS
     __bss_end__ = _ebss;
   } >RAM
 
+  .noinit (NOLOAD) : ALIGN(4)
+  {
+    _noinit = .;
+    *(.noinit)
+    *(.noinit.*) 
+    . = ALIGN(4) ;
+    _end_noinit = .;
+  } > RAM
+
   /* User_heap_stack section, used to check that there is enough RAM left */
   ._user_heap_stack :
   {
@@ -166,8 +176,6 @@ SECTIONS
     . = . + _Min_Stack_Size;
     . = ALIGN(8);
   } >RAM
-
-  
 
   /* Remove information from the standard libraries */
   /DISCARD/ :

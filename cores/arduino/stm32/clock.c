@@ -36,6 +36,7 @@
   ******************************************************************************
   */
 #include "stm32_def.h"
+#include "Reset.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -84,6 +85,7 @@ void SysTick_Handler(void)
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
   osSystickHandler();
+  tickReset();
 }
 
 /**

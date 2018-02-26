@@ -37,6 +37,7 @@
   */
 #include "stm32_def.h"
 #include "hw_config.h"
+#include "Reset.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -49,6 +50,8 @@
   */
 void hw_config_init(void)
 {
+  checkBoot();
+
   //Initialize the HAL
   HAL_Init();
 
