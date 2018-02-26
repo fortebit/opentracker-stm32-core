@@ -48,6 +48,7 @@
 #ifdef USBD_USE_CDC
 
 #include "Arduino.h"
+#include "Reset.h"
 #include "usbd_cdc_if.h"
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
@@ -150,9 +151,6 @@ int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
     SerialUSB._usbLineInfo.format     = pbuf[4];
     SerialUSB._usbLineInfo.paritytype = pbuf[5];
     SerialUSB._usbLineInfo.datatype   = pbuf[6];
-    
-    /* Use the new configuration */
-    //TODO
     break;
 
   case CDC_GET_LINE_CODING:
@@ -166,7 +164,17 @@ int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
     break;
 
   case CDC_SET_CONTROL_LINE_STATE:
-    SerialUSB._lineState = pbuf[0];
+    SerialUSB._lineState = pbuf[2];
+    // auto-reset into the bootloader is triggered when the port, already
+    // open at 1200 bps, is closed.
+    if (SerialUSB.baud() == 1200)
+    {
+      // We check DTR state to determine if host port is open (bit 0 of lineState).
+      if (SerialUSB.dtr() == 0)
+        initiateReset(250);
+      else
+        cancelReset();
+    }
     break;
 
   case CDC_SEND_BREAK:
