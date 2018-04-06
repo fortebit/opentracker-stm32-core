@@ -245,27 +245,6 @@ uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len)
   return result;
 }
 
-//TODO: Fixme! Use CMSIS 5+ to get missing implementation of NVIC_GetEnableIRQ()
-/**
-  \brief   Get Interrupt Enable status
-  \details Returns a device specific interrupt enable status from the NVIC interrupt controller.
-  \param [in]      IRQn  Device specific interrupt number.
-  \return             0  Interrupt is not enabled.
-  \return             1  Interrupt is enabled.
-  \note    IRQn must not be negative.
- */
-__STATIC_INLINE uint32_t NVIC_GetEnableIRQ(IRQn_Type IRQn)
-{
-  if ((int32_t)(IRQn) >= 0)
-  {
-    return((uint32_t)(((NVIC->ISER[(((uint32_t)(int32_t)IRQn) >> 5UL)] & (1UL << (((uint32_t)(int32_t)IRQn) & 0x1FUL))) != 0UL) ? 1UL : 0UL));
-  }
-  else
-  {
-    return(0U);
-  }
-}
-
 SerialUSBClass::SerialUSBClass()
 {
   _head = _tail = 0;
