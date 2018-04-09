@@ -122,26 +122,45 @@ USBD_HandleTypeDef hUsbDeviceFS;
 void usbd_interface_init(void)
 {
 #ifdef USBD_USE_HID_COMPOSITE
-  /* Init Device Library */
-  USBD_Init(&hUSBD_Device_HID, &HID_Desc, 0);
+  if (hUSBD_Device_HID.dev_state == 0)
+  {
+    /* Init Device Library */
+    USBD_Init(&hUSBD_Device_HID, &HID_Desc, 0);
 
-  /* Add Supported Class */
-  USBD_RegisterClass(&hUSBD_Device_HID, USBD_COMPOSITE_HID_CLASS);
+    /* Add Supported Class */
+    USBD_RegisterClass(&hUSBD_Device_HID, USBD_COMPOSITE_HID_CLASS);
 
-  /* Start Device Process */
-  USBD_Start(&hUSBD_Device_HID);
+    /* Start Device Process */
+    USBD_Start(&hUSBD_Device_HID);
+  }
 #endif // USBD_USE_HID_COMPOSITE
 
 #ifdef USBD_USE_CDC
-  /* Init Device Library */
-  USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS);
+  if (hUsbDeviceFS.dev_state == 0)
+  {
+    /* Init Device Library */
+    USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS);
 
-  /* Add Supported Class */
-  USBD_RegisterClass(&hUsbDeviceFS, USBD_CDC_CLASS);
-  USBD_CDC_RegisterInterface(&hUsbDeviceFS, &USBD_Interface_fops_FS);
+    /* Add Supported Class */
+    USBD_RegisterClass(&hUsbDeviceFS, USBD_CDC_CLASS);
+    USBD_CDC_RegisterInterface(&hUsbDeviceFS, &USBD_Interface_fops_FS);
 
-  /* Start Device Process */
-  USBD_Start(&hUsbDeviceFS);
+    /* Start Device Process */
+    USBD_Start(&hUsbDeviceFS);
+  }
+#endif // USBD_USE_CDC
+}
+
+void usbd_interface_deinit(void)
+{
+#ifdef USBD_USE_HID_COMPOSITE
+  USBD_DeInit(&hUSBD_Device_HID);
+  hUSBD_Device_HID.dev_state = 0;
+#endif // USBD_USE_HID_COMPOSITE
+
+#ifdef USBD_USE_CDC
+  USBD_DeInit(&hUsbDeviceFS);
+  hUsbDeviceFS.dev_state = 0;
 #endif // USBD_USE_CDC
 }
 

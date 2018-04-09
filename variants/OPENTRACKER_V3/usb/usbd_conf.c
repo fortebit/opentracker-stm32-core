@@ -105,11 +105,17 @@ void HAL_PCD_MspDeInit(PCD_HandleTypeDef* pcdHandle)
 {
   if(pcdHandle->Instance==USB)
   {
+    /* Peripheral interrupt Deinit*/
+    HAL_NVIC_DisableIRQ(USB_IRQn);
+
     /* Peripheral clock disable */
     __HAL_RCC_USB_CLK_DISABLE();
 
-    /* Peripheral interrupt Deinit*/
-    HAL_NVIC_DisableIRQ(USB_IRQn);
+    /* Configure DM DP Pins */
+    HAL_GPIO_DeInit(GPIOA, (GPIO_PIN_11 | GPIO_PIN_12));
+	
+    /* Disable USB power on Pwrctrl CR2 register */
+    HAL_PWREx_DisableVddUSB();
   }
 }
 

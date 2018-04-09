@@ -66,6 +66,7 @@
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void usbd_interface_init(void);
+void usbd_interface_deinit(void);
 
 void usbd_interface_mouse_sendReport(uint8_t *report, uint16_t len);
 void usbd_interface_keyboard_sendReport(uint8_t *report, uint16_t len);

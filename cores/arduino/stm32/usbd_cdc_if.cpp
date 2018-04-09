@@ -94,6 +94,7 @@ int8_t CDC_Init_FS(void)
   */
 int8_t CDC_DeInit_FS(void)
 {
+  SerialUSB._lineState = 0; // force closed
   return (USBD_OK);
 }
 
@@ -303,6 +304,9 @@ int SerialUSBClass::peek(void)
 
 void SerialUSBClass::accept()
 {
+  if (hUsbDeviceFS.dev_state != USBD_STATE_CONFIGURED || _lineState == 0)
+    return;
+
   bool ena = (NVIC_GetEnableIRQ(USBD_IRQ_NUM) != 0);
   NVIC_DisableIRQ(USBD_IRQ_NUM);
 
@@ -352,13 +356,13 @@ size_t SerialUSBClass::write(const uint8_t *buffer, size_t size)
   // TODO - ZE - check behavior on different OSes and test what happens if an
   // open connection isn't broken cleanly (cable is yanked out, host dies
   // or locks up, or host virtual serial port hangs)
-  if (_lineState > 0)
+  while (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED && _lineState > 0)
   {
-    while (CDC_Transmit_FS((uint8_t*)buffer, size) != USBD_OK)
-      __WFI();
-
-    return size;
+    if (CDC_Transmit_FS((uint8_t*)buffer, size) == USBD_OK)
+      return size;
+    __WFI();
   }
+
   setWriteError();
   return 0;
 }
@@ -383,12 +387,12 @@ SerialUSBClass::operator bool()
 
   bool result = false;
 
-  if (_lineState > 0)
+  if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED && _lineState > 0)
   {
     result = true;
+    delay(10);
   }
 
-  delay(10);
   return result;
 }
 
