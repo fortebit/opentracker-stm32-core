@@ -133,18 +133,6 @@ recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 # Uploader tool
 # -------------------
 
-# Upload to board via mass storage
-tools.massStorageCopy.cmd=massStorageCopy
-tools.massStorageCopy.cmd.windows=massStorageCopy.bat
-tools.massStorageCopy.cmd.macosx=massStorageCopyMacOsX
-tools.massStorageCopy.path={runtime.tools.STM32Tools.path}/tools/win
-tools.massStorageCopy.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
-tools.massStorageCopy.path.linux={runtime.tools.STM32Tools.path}/tools/linux
-tools.massStorageCopy.path.linux64={runtime.tools.STM32Tools.path}/tools/linux
-tools.massStorageCopy.upload.params.verbose=
-tools.massStorageCopy.upload.params.quiet=
-tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
-
 # ST-Link upload
 tools.stlink_upload.cmd=stlink_upload
 tools.stlink_upload.cmd.windows=stlink_upload.bat
@@ -161,9 +149,11 @@ tools.stm32cube_dfu.cmd=STM32_Programmer.sh
 tools.stm32cube_dfu.cmd.windows=STM32_Programmer_CLI.exe
 tools.stm32cube_dfu.cmd.macosx=STM32_Programmer_CLI
 tools.stm32cube_dfu.path.windows=C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin
+tools.stm32cube_dfu.path_x86.windows=C:\Program Files (x86)\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin
 tools.stm32cube_dfu.path.macosx=/Applications/STMicroelectronics/STM32Cube/STM32CubeProgrammer/STM32CubeProgrammer.app/Contents/MacOs/bin
 tools.stm32cube_dfu.path.linux=/usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin
 tools.stm32cube_dfu.path.linux64=/usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin
 tools.stm32cube_dfu.upload.params.verbose=-vb2
 tools.stm32cube_dfu.upload.params.quiet=
-tools.stm32cube_dfu.upload.pattern="{path}/{cmd}" -c port=usb1 -e all -d "{build.path}/{build.project_name}.hex" -v -g
+tools.stm32cube_dfu.upload.pattern=sh -c 'sleep 2 ; "{path}/{cmd}" -c port=usb1 -e all -d "{build.path}/{build.project_name}.hex" -v -g'
+tools.stm32cube_dfu.upload.pattern.windows=cmd /c ping 127.0.0.1 -n 3 >nul & if exist "{path}\{cmd}" ( "{path}\{cmd}" -c port=usb1 -e all -d "{build.path}\{build.project_name}.hex" -v -g ) else ( "{path_x86}\{cmd}" -c port=usb1 -e all -d "{build.path}\{build.project_name}.hex" -v -g )
