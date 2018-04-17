@@ -236,13 +236,14 @@ uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len)
 {
   uint8_t result = USBD_OK;
 
-  USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceFS.pClassData;
-  if (hcdc->TxState != 0){
-    return USBD_BUSY;
+  if (Len > 0) {
+    USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceFS.pClassData;
+    if (hcdc->TxState != 0){
+      return USBD_BUSY;
+    }
+    USBD_CDC_SetTxBuffer(&hUsbDeviceFS, Buf, Len);
+    result = USBD_CDC_TransmitPacket(&hUsbDeviceFS);
   }
-  USBD_CDC_SetTxBuffer(&hUsbDeviceFS, Buf, Len);
-  result = USBD_CDC_TransmitPacket(&hUsbDeviceFS);
-
   return result;
 }
 
@@ -347,6 +348,9 @@ void SerialUSBClass::flush(void)
 
 size_t SerialUSBClass::write(const uint8_t *buffer, size_t size)
 {
+  if (size <= 0)
+    return 0;
+
   /* only try to send bytes if the high-level CDC connection itself
    is open (not just the pipe) - the OS should set lineState when the port
    is opened and clear lineState when the port is closed.
