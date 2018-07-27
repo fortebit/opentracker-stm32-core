@@ -1588,7 +1588,6 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
         }
         else
         {
-          //HAL_PCD_EP_Receive(hpcd, ep->num, ep->xfer_buff, ep->xfer_len);
           USB_EPStartXfer(hpcd->Instance, ep, hpcd->Init.dma_enable);
         }
         
@@ -1604,37 +1603,24 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
         /* IN double Buffering*/
         if (ep->doublebuffer == 0)
         {
-          ep->xfer_count = PCD_GET_EP_TX_CNT(hpcd->Instance, ep->num);
-          if (ep->xfer_count != 0)
-          {
-            USB_WritePMA(hpcd->Instance, ep->xfer_buff, ep->pmaadress, ep->xfer_count);
-          }
+          count = PCD_GET_EP_TX_CNT(hpcd->Instance, ep->num);
         }
         else
         {
           if (PCD_GET_ENDPOINT(hpcd->Instance, ep->num) & USB_EP_DTOG_TX)
           {
             /*read from endpoint BUF0Addr buffer*/
-            ep->xfer_count = PCD_GET_EP_DBUF0_CNT(hpcd->Instance, ep->num);
-            if (ep->xfer_count != 0)
-            {
-              USB_WritePMA(hpcd->Instance, ep->xfer_buff, ep->pmaaddr0, ep->xfer_count);
-            }
+            count = PCD_GET_EP_DBUF0_CNT(hpcd->Instance, ep->num);
           }
           else
           {
             /*read from endpoint BUF1Addr buffer*/
-            ep->xfer_count = PCD_GET_EP_DBUF1_CNT(hpcd->Instance, ep->num);
-            if (ep->xfer_count != 0)
-            {
-              USB_WritePMA(hpcd->Instance, ep->xfer_buff, ep->pmaaddr1, ep->xfer_count);
-            }
+            count = PCD_GET_EP_DBUF1_CNT(hpcd->Instance, ep->num);
           }
-          PCD_FreeUserBuffer(hpcd->Instance, ep->num, PCD_EP_DBUF_IN);  
         }
         /*multi-packet on the NON control IN endpoint*/
-        ep->xfer_count = PCD_GET_EP_TX_CNT(hpcd->Instance, ep->num);
-        ep->xfer_buff+=ep->xfer_count;
+        ep->xfer_count += count;
+        ep->xfer_buff += count;
        
         /* Zero Length Packet? */
         if (ep->xfer_len == 0)
@@ -1644,7 +1630,7 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
         }
         else
         {
-          HAL_PCD_EP_Transmit(hpcd, ep->num, ep->xfer_buff, ep->xfer_len);
+          USB_EPStartXfer(hpcd->Instance, ep, hpcd->Init.dma_enable);
         }
       } 
     }
