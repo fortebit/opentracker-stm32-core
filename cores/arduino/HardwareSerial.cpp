@@ -30,11 +30,11 @@
 #include "Arduino.h"
 #include "HardwareSerial.h"
 
-#if !defined(NO_HWSERIAL)
+#if defined(HAL_UART_MODULE_ENABLED)
 #if defined(HAVE_HWSERIAL1) || defined(HAVE_HWSERIAL2) || defined(HAVE_HWSERIAL3) ||\
     defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
     defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL8) ||\
-    defined(HAVE_HWSERIAL10)|| defined(HAVE_HWSERIAL11)
+    defined(HAVE_HWSERIAL10) || defined(HAVE_HWSERIALLP1)
 // SerialEvent functions are weak, so when the user doesn't define them,
 // the linker just sets their address to 0 (which is checked below).
 #if defined(HAVE_HWSERIAL1)
@@ -103,10 +103,11 @@
   void serialEvent10() __attribute__((weak));
 #endif
 
-#if defined(HAVE_HWSERIAL11)
-  HardwareSerial Serial11(LPUART1);
-  void serialEvent11() __attribute__((weak));
+#if defined(HAVE_HWSERIALLP1)
+  HardwareSerial SerialLP1(LPUART1);
+  void serialEventLP1() __attribute__((weak));
 #endif
+#endif // HAVE_HWSERIALx
 
 void serialEventRun(void)
 {
@@ -138,10 +139,10 @@ void serialEventRun(void)
   if (serialEvent9 && Serial9.available()) serialEvent9();
 #endif
 #if defined(HAVE_HWSERIAL10)
-  if (serialEvent10 && Serial10.available()) serialEvent10();
+  if (serialEventl10 && Serial10.available()) serialEvent10();
 #endif
-#if defined(HAVE_HWSERIAL11)
-  if (serialEvent11 && Serial11.available()) serialEvent11();
+#if defined(HAVE_HWSERIALLP1)
+  if (serialEventLP1 && SerialLP1.available()) serialEventLP1();
 #endif
 }
 
@@ -190,6 +191,16 @@ void HardwareSerial::init(void)
   _serial.tx_tail = 0;
 }
 
+void HardwareSerial::configForLowPower(void)
+{
+#if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
+  // Reconfigure properly Serial instance to use HSI as clock source
+  end();
+  uart_config_lowpower(&_serial);
+  begin(_serial.baudrate, _config);
+#endif
+}
+
 // Actual interrupt handlers //////////////////////////////////////////////////////////////
 
 void HardwareSerial::_rx_complete_irq(serial_t* obj)
@@ -234,6 +245,7 @@ void HardwareSerial::begin(unsigned long baud, byte config)
   uint32_t databits = 0;
 
   _serial.baudrate = (uint32_t)baud;
+  _config = config;
 
   // Manage databits
   switch(config & 0x07) {
@@ -388,5 +400,4 @@ void HardwareSerial::setRx(PinName _rx) {
 void HardwareSerial::setTx(PinName _tx){
   _serial.pin_tx = _tx;
 }
-#endif // HAVE_HWSERIALx
-#endif // !NO_HWSERIAL
+#endif // HAL_UART_MODULE_ENABLED
