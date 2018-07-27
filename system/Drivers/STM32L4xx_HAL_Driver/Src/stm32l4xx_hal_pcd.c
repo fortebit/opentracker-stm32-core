@@ -2367,7 +2367,7 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
         }
         else
         {
-          USB_EPStartXfer(hpcd->Instance, ep, hpcd->Init.dma_enable);
+          USB_EPStartXfer(hpcd->Instance, ep);
         }
 
       } /* if((wEPVal & EP_CTR_RX) */
@@ -2413,7 +2413,7 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
         }
         else
         {
-          USB_EPStartXfer(hpcd->Instance, ep, hpcd->Init.dma_enable);
+          USB_EPStartXfer(hpcd->Instance, ep);
         }
       }
     }
