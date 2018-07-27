@@ -139,7 +139,7 @@ void serialEventRun(void)
   if (serialEvent9 && Serial9.available()) serialEvent9();
 #endif
 #if defined(HAVE_HWSERIAL10)
-  if (serialEventl10 && Serial10.available()) serialEvent10();
+  if (serialEvent10 && Serial10.available()) serialEvent10();
 #endif
 #if defined(HAVE_HWSERIALLP1)
   if (serialEventLP1 && SerialLP1.available()) serialEventLP1();

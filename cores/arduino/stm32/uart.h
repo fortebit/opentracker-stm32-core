@@ -48,8 +48,25 @@
 #if !defined(HAL_UART_MODULE_ENABLED)
 #define serial_t void*
 #else
-#if !defined(HWSERIAL_NONE) && defined(SERIAL_UART_INSTANCE)
+#if !defined(HWSERIAL_NONE)
 
+#if defined(ALL_HWSERIAL) || defined(FIRST_THIRD_HWSERIAL)
+#define ENABLE_HWSERIAL1
+#define ENABLE_HWSERIAL2
+#define ENABLE_HWSERIAL3
+#if !defined(FIRST_THIRD_HWSERIAL)
+#define ENABLE_HWSERIAL4
+#define ENABLE_HWSERIAL5
+#define ENABLE_HWSERIAL6
+#define ENABLE_HWSERIAL7
+#define ENABLE_HWSERIAL8
+#define ENABLE_HWSERIAL9
+#define ENABLE_HWSERIAL10
+#define ENABLE_HWSERIALLP1
+#endif // FIRST_THIRD_HWSERIAL
+#endif // ALL_HWSERIAL || FIRST_THIRD_HWSERIAL
+
+#if defined(SERIAL_UART_INSTANCE)
 #if SERIAL_UART_INSTANCE == 0
 #define ENABLE_HWSERIALLP1
 #if !defined(Serial)
@@ -121,7 +138,8 @@
 #warning "No generic 'Serial' defined!"
 #endif
 #endif /* SERIAL_UART_INSTANCE == x */
-#endif /* !HWSERIAL_NONE && SERIAL_UART_INSTANCE */
+#endif /* SERIAL_UART_INSTANCE */
+#endif /* !HWSERIAL_NONE */
 
 #if defined(ENABLE_HWSERIALLP1)
 #if defined(LPUART1_BASE)
