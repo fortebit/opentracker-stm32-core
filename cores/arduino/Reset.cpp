@@ -25,7 +25,7 @@ extern "C" {
 
 #define RESET_TO_BOOTLOADER_MAGIC_CODE 0xDEADBEEF
 
-uint32_t reset_to_bootloader_magic __attribute__ ((section (".noinit")));
+uint32_t reset_to_bootloader_magic;
 
 void checkBoot()
 {
