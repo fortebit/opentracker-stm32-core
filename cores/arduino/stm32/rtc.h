@@ -138,6 +138,8 @@ void RTC_setPrediv(int8_t asynch, int16_t synch);
 void RTC_init(hourFormat_t format, sourceClock_t source);
 void RTC_DeInit(void);
 
+void RTC_SetOutput(uint32_t outMode, uint32_t outPolarity, uint32_t outTypePushPull);
+
 void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t period);
 void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period);
 

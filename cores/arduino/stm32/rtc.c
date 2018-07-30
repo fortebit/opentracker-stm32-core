@@ -344,6 +344,23 @@ void RTC_DeInit(void)
 }
 
 /**
+  * @brief Setup RTC output pin configuration. Must be called after RTC_init().
+  * @param outMode one of RTC_OUTPUT_WAKEUP or RTC_OUTPUT_ALARMA
+  * @param outPolarity one of RTC_OUTPUT_POLARITY_HIGH or RTC_OUTPUT_POLARITY_LOW
+  * @param outTypePushPull one of RTC_OUTPUT_TYPE_PUSHPULL or RTC_OUTPUT_TYPE_OPENDRAIN
+  * @retval None
+  */
+void RTC_SetOutput(uint32_t outMode, uint32_t outPolarity, uint32_t outTypePushPull)
+{
+  RtcHandle.Init.OutPut = outMode;
+#if !defined(STM32F1xx)
+  RtcHandle.Init.OutPutPolarity = outPolarity;
+  RtcHandle.Init.OutPutType = outTypePushPull;
+#endif
+  HAL_RTC_Init( &RtcHandle );
+}
+
+/**
   * @brief Set RTC time
   * @param hours: 0-12 or 0-23. Depends on the format used.
   * @param minutes: 0-59
