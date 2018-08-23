@@ -1,10 +1,9 @@
 # See: https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
 
 menu.usb=USB interface
-
 menu.opt=Optimize
+menu.rtlib=C Runtime Library
 menu.upload_method=Upload method
-
 menu.modem=Modem Model
 
 ################################################################################
@@ -85,3 +84,15 @@ opentracker_3.menu.opt.o3lto.build.flags.ldspecs=-flto
 opentracker_3.menu.opt.ogstd=Debug (-g)
 opentracker_3.menu.opt.ogstd.build.flags.optimize=-g -Og
 opentracker_3.menu.opt.ogstd.build.flags.ldspecs=
+
+# C Runtime Library
+opentracker_3.menu.rtlib.nano=Newlib Nano (default)
+opentracker_3.menu.rtlib.nano.build.flags.ldspecs=--specs=nano.specs
+opentracker_3.menu.rtlib.nanofp=Newlib Nano + Float Printf
+opentracker_3.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+opentracker_3.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+opentracker_3.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+opentracker_3.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+opentracker_3.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+opentracker_3.menu.rtlib.full=Newlib Standard
+opentracker_3.menu.rtlib.full.build.flags.ldspecs=
