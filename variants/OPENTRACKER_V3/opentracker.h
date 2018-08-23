@@ -79,8 +79,13 @@
 #define PIN_EXT_DAC1    PA4
 #define PIN_EXT_DAC2    PA5
 
-#define PIN_EXT_GPIO1   PD7 // or PD13 in v3.1
+#if OPENTRACKER_HW_REV > 0x0300
+#define PIN_EXT_GPIO1   PD13
 #define PIN_EXT_GPIO2   PB5
+#else
+#define PIN_EXT_GPIO1   PB5
+#define PIN_EXT_GPIO2   PD7
+#endif
 
 #define PIN_S_ACC_INT1  PD11
 #define PIN_C_OUT_ENA   PC6
