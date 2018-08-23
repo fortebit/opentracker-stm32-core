@@ -20,7 +20,7 @@ opentracker_3.pid.0=0x5711
 
 opentracker_3.build.core=arduino
 opentracker_3.build.board=OPENTRACKER_V3
-opentracker_3.build.extra_flags=-D{build.product_line} {build.enable_usb} -DALL_HWSERIAL -DOPENTRACKER_HW_REV=0x0300 {build.modem_flags}
+opentracker_3.build.extra_flags=-D{build.product_line} {build.enable_usb} -DALL_HWSERIAL -DSERIAL_RX_BUFFER_SIZE=256 -DOPENTRACKER_HW_REV=0x0300 {build.modem_flags}
 opentracker_3.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 opentracker_3.build.board=OPENTRACKER_V3
 opentracker_3.build.series=STM32L4xx
