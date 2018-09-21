@@ -37,7 +37,7 @@
 #define SD_CLK_PWR_SAVE                      SDMMC_CLOCK_POWER_SAVE_DISABLE
 #define SD_BUS_WIDE_1B                       SDMMC_BUS_WIDE_1B
 #define SD_BUS_WIDE_4B                       SDMMC_BUS_WIDE_4B
-#define SD_HW_FLOW_CTRL                      SDMMC_HARDWARE_FLOW_CONTROL_DISABLE
+#define SD_HW_FLOW_CTRL                      SDMMC_HARDWARE_FLOW_CONTROL_ENABLE
 #define SD_CLK_DIV                           SDMMC_TRANSFER_CLK_DIV
 
 /* Definition for MSP SD */
