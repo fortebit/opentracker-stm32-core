@@ -125,11 +125,15 @@ class HardwareSerial : public Stream
     void setRx(PinName _rx);
     void setTx(PinName _tx);
 
+    friend class STM32LowPower;
+
     // Interrupt handlers
     static void _rx_complete_irq(serial_t* obj);
     static int _tx_complete_irq(serial_t* obj);
   private:
+    uint8_t _config;
     void init(void);
+    void configForLowPower(void);
 };
 
 #if defined(HAVE_HWSERIAL1)
@@ -162,8 +166,8 @@ extern HardwareSerial Serial9;
 #if defined(HAVE_HWSERIAL10)
 extern HardwareSerial Serial10;
 #endif
-#if defined(HAVE_HWSERIAL11)
-extern HardwareSerial Serial11;
+#if defined(HAVE_HWSERIALLP1)
+extern HardwareSerial SerialLP1;
 #endif
 
 extern void serialEventRun(void) __attribute__((weak));

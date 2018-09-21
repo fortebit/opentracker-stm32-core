@@ -40,7 +40,7 @@
 #define __RTC_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32_def.h"
+#include "clock.h"
 
 #ifdef HAL_RTC_MODULE_ENABLED
 
@@ -59,23 +59,51 @@ typedef enum {
   PM
 } hourAM_PM_t;
 
-// Clock source selection
+/* See AN4579 Table 5 for possible values */
 typedef enum {
-  LSI_CLOCK,
-  LSE_CLOCK,
-  HSE_CLOCK
-} sourceClock_t;
+  OFF_MSK = 0,
+  SS_MSK  = 1, /* MSK0 */
+  MM_MSK  = 2, /* MSK1 */
+  HH_MSK  = 4, /* MSK2 */
+  D_MSK   = 8, /* MSK3 */
+  /* NOTE: STM32 RTC can't assign a month or a year to an alarm. Those enum
+  are kept for compatibility but are ignored inside enableAlarm(). */
+  M_MSK   = 16,
+  Y_MSK   = 32
+} alarmMask_t;
 
 typedef void(*voidCallbackPtr)(void *);
 
 /* Exported constants --------------------------------------------------------*/
+
+#define HSE_RTC_MAX 1000000U
+
+#if !defined(STM32F1xx)
+#if !defined(RTC_PRER_PREDIV_S) || !defined(RTC_PRER_PREDIV_S)
+#error "Unknown Family - unknown synchronous prescaler"
+#endif
+#define PREDIVA_MAX (RTC_PRER_PREDIV_A >> RTC_PRER_PREDIV_A_Pos)
+#define PREDIVS_MAX (RTC_PRER_PREDIV_S >> RTC_PRER_PREDIV_S_Pos)
+#endif /* !STM32F1xx */
+
+/* Ultra Low Power High (ULPH) density */
+#if defined(STM32L100xBA) || defined (STM32L151xBA) || defined (STM32L152xBA) ||\
+    defined(STM32L100xC) || defined (STM32L151xC) || defined (STM32L152xC) ||\
+    defined (STM32L162xC) || defined(STM32L151xCA) || defined (STM32L151xD) ||\
+    defined (STM32L152xCA) || defined (STM32L152xD) || defined (STM32L162xCA) ||\
+    defined (STM32L162xD) || defined(STM32L151xE) || defined(STM32L151xDX) ||\
+    defined (STM32L152xE) || defined (STM32L152xDX) || defined (STM32L162xE) ||\
+    defined (STM32L162xDX)
+#define STM32L1_ULPH
+#endif
+
 #if defined(STM32F0xx) || defined(STM32L0xx)
 #define RTC_Alarm_IRQn RTC_IRQn
-#define RTC_Alarm_IRQHandler  RTC_IRQHandler
+#define RTC_Alarm_IRQHandler RTC_IRQHandler
 #endif
 
 #if defined(STM32F1xx) && !defined(IS_RTC_WEEKDAY)
-// Compensate missing HAL definition
+/* Compensate missing HAL definition */
 #define IS_RTC_WEEKDAY(WEEKDAY) (((WEEKDAY) == RTC_WEEKDAY_MONDAY)    || \
                                  ((WEEKDAY) == RTC_WEEKDAY_TUESDAY)   || \
                                  ((WEEKDAY) == RTC_WEEKDAY_WEDNESDAY) || \
@@ -84,91 +112,43 @@ typedef void(*voidCallbackPtr)(void *);
                                  ((WEEKDAY) == RTC_WEEKDAY_SATURDAY)  || \
                                  ((WEEKDAY) == RTC_WEEKDAY_SUNDAY))
 
+/* F1 doesn't manage 12h format */
 #define IS_RTC_HOUR12(HOUR)      IS_RTC_HOUR24(HOUR)
-#endif // defined(STM32F1xx) && !defined(IS_RTC_WEEKDAY)
+#endif /* !STM32F1xx && !IS_RTC_WEEKDAY */
 
-/* RTC prescalers are set to obtain the RTC clock to 1Hz. See AN4759.
-  Default prescalers are calculated for the following clock speed:
-  - LSI = 32, 37 or 40 kHz
-  - LSE = 32.768 kHz
-  - HSE = 8 MHz
-
- Prescalers should be set by user in case the clock configuration is different.
+/* __HAL_RCC_GET_RTC_SOURCE is not defined for F2*/
+/*
+#ifndef __HAL_RCC_GET_RTC_SOURCE
+static uint32_t RTC_getSource(void) {
+  RCC_PeriphCLKInitTypeDef  *PeriphClkInit;
+  HAL_RCCEx_GetPeriphCLKConfig(PeriphClkInit);
+  return PeriphClkInit->RTCClockSelection;
+}
+#define __HAL_RCC_GET_RTC_SOURCE()  RTC_getSource()
+#endif
 */
-
-// LSE
-#ifndef LSE_ASYNCH_PREDIV
-#define LSE_ASYNCH_PREDIV 127U
-#endif
-
-#ifndef LSE_SYNCH_PREDIV
-#define LSE_SYNCH_PREDIV  255U
-#endif
-
-// LSI
-#ifndef LSI_ASYNCH_PREDIV
-// 32kHz
-#if defined(STM32L4xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
-#define LSI_ASYNCH_PREDIV 127U
-// 37kHz
-#elif defined(STM32L0xx) || defined(STM32L1xx)
-#define LSI_ASYNCH_PREDIV 124U
-// 40kHz
-#elif defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F3xx)
-#define LSI_ASYNCH_PREDIV 127U
-#endif
-#endif //LSI_ASYNCH_PREDIV
-
-#ifndef LSI_SYNCH_PREDIV
-// 32kHz
-#if defined(STM32L4xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
-#define LSI_SYNCH_PREDIV 249U
-// 37kHz
-#elif defined(STM32L0xx) || defined(STM32L1xx)
-#define LSI_SYNCH_PREDIV 295U
-// 40kHz
-#elif defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F3xx)
-#define LSI_SYNCH_PREDIV 311U
-#endif
-#endif //LSI_SYNCH_PREDIV
-
-// HSE
-#ifndef HSE_ASYNCH_PREDIV
-#if defined(STM32L4xx) || defined(STM32F0xx) || defined(STM32F3xx)
-//HSE DIV32
-#define HSE_ASYNCH_PREDIV 124U
-#else
-//HSE DIV8
-#define HSE_ASYNCH_PREDIV  99U
-#endif
-#endif //HSE_ASYNCH_PREDIV
-
-#ifndef HSE_SYNCH_PREDIV
-#if defined(STM32L4xx) || defined(STM32F0xx) || defined(STM32F3xx)
-//HSE DIV32
-#define HSE_SYNCH_PREDIV  1999U
-#else
-//HSE DIV8
-#define HSE_SYNCH_PREDIV  9999U
-#endif
-#endif //HSE_SYNCH_PREDIV
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+void RTC_SetClockSource(sourceClock_t source);
+
+void RTC_getPrediv(int8_t *asynch, int16_t *synch);
+void RTC_setPrediv(int8_t asynch, int16_t synch);
+
 void RTC_init(hourFormat_t format, sourceClock_t source);
 void RTC_DeInit(void);
 
 void RTC_SetOutput(uint32_t outMode, uint32_t outPolarity, uint32_t outTypePushPull);
 
-void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t format);
-void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *format);
+void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t period);
+void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period);
 
-void RTC_SetDate(uint8_t year, uint8_t month, uint8_t date, uint8_t day);
-void RTC_GetDate(uint8_t *year, uint8_t *month, uint8_t *date, uint8_t *day);
+void RTC_SetDate(uint8_t year, uint8_t month, uint8_t day, uint8_t wday);
+void RTC_GetDate(uint8_t *year, uint8_t *month, uint8_t *day, uint8_t *wday);
 
-void RTC_StartAlarm(uint8_t date, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t format, uint32_t mask);
+void RTC_StartAlarm(uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t period, uint8_t mask);
 void RTC_StopAlarm(void);
-void RTC_GetAlarm(uint8_t *date, uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *format);
+void RTC_GetAlarm(uint8_t *day, uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period, uint8_t *mask);
 void attachAlarmCallback(voidCallbackPtr func, void *data);
 void detachAlarmCallback(void);
 
@@ -176,7 +156,7 @@ void detachAlarmCallback(void);
  }
 #endif
 
-#endif // HAL_RTC_MODULE_ENABLED
+#endif /* HAL_RTC_MODULE_ENABLED */
 
 #endif /* __RTC_H */
 

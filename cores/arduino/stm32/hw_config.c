@@ -50,8 +50,6 @@
   */
 void hw_config_init(void)
 {
-  checkBoot();
-
   //Initialize the HAL
   HAL_Init();
 

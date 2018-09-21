@@ -1,14 +1,14 @@
 /**
   ******************************************************************************
-  * @file    clock.h
+  * @file    LowPower.h
   * @author  WI6LABS
   * @version V1.0.0
-  * @date    01-August-2016
-  * @brief   Header for clock.c module
+  * @date    17 - November -2017
+  * @brief   Header for Low Power module
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -36,37 +36,37 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __CLOCK_H
-#define __CLOCK_H
+#ifndef __LOW_POWER_H
+#define __LOW_POWER_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
+#include "uart.h"
+
+#ifdef HAL_PWR_MODULE_ENABLED
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
 /* Exported types ------------------------------------------------------------*/
-/* Clock source selection */
-typedef enum {
-  LSI_CLOCK,
-  HSI_CLOCK,
-  LSE_CLOCK,
-  HSE_CLOCK
-} sourceClock_t;
-
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-uint32_t GetCurrentMilli(void);
-uint32_t GetCurrentMicro(void);
-void delayInsideIT(uint32_t delay_us);
 
-void enableClock(sourceClock_t source);
+void LowPower_init();
+void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode);
+void LowPower_EnableWakeUpUart(serial_t* serial, void (*FuncPtr)( void ) );
+void LowPower_sleep(uint32_t regulator);
+void LowPower_stop(serial_t *obj);
+void LowPower_standby();
+void LowPower_shutdown();
+/* Weaked function */
+void SystemClock_ConfigFromStop(void);
 #ifdef __cplusplus
-}
+ }
 #endif
 
-#endif /* __CLOCK_H */
+#endif /* HAL_PWR_MODULE_ENABLED */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+#endif /* __LOW_POWER_H */

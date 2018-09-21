@@ -360,7 +360,7 @@ size_t SerialUSBClass::write(const uint8_t *buffer, size_t size)
   // TODO - ZE - check behavior on different OSes and test what happens if an
   // open connection isn't broken cleanly (cable is yanked out, host dies
   // or locks up, or host virtual serial port hangs)
-  while (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED && _lineState > 0)
+  while (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED && (_lineState & 0x1) != 0)
   {
     if (CDC_Transmit_FS((uint8_t*)buffer, size) == USBD_OK)
       return size;

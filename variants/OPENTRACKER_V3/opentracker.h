@@ -12,12 +12,10 @@
 #define PIN_C_OUT_2     PE0
 
 #define PIN_STATUS_GSM  PB4
-#define PIN_RING_GSM    PA15
 #define PIN_WAKE_GSM    PE3
 #define PIN_C_PWR_GSM   PE2
 #define PIN_C_KILL_GSM  PD3
 
-#define PIN_RESET_GPS   PH3
 //#define PIN_STANDBY_GPS NC
 //#define PIN_S_PPS_GPS   NC
 
@@ -74,13 +72,27 @@
 #define PIN_S_USBVBUS   PC7
 
 #define PIN_EXT_INT     PD15
-#define PIN_EXT_PWM     PD13
 #define PIN_EXT_RST     PC4
 #define PIN_EXT_DAC1    PA4
 #define PIN_EXT_DAC2    PA5
 
-#define PIN_EXT_GPIO1   PD7 // or PD13 in v3.1
+#if OPENTRACKER_HW_REV > 0x0300
+#define PIN_EXT_GPIO1   PD13
 #define PIN_EXT_GPIO2   PB5
+#define PIN_EXT_PWM     PA15
+
+#define PIN_RING_GSM    PD1
+
+#define PIN_RESET_GPS   PD7
+#else
+#define PIN_EXT_GPIO1   PB5
+#define PIN_EXT_GPIO2   PD7
+#define PIN_EXT_PWM     PD13
+
+#define PIN_RING_GSM    PA15
+
+#define PIN_RESET_GPS   PH3
+#endif
 
 #define PIN_S_ACC_INT1  PD11
 #define PIN_C_OUT_ENA   PC6
