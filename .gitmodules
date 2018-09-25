@@ -19,3 +19,6 @@
 [submodule "libraries/STM32BackupRegs"]
 	path = libraries/STM32BackupRegs
 	url = https://github.com/geolink/STM32BackupRegs.git
+[submodule "libraries/STM32FreeRTOS"]
+	path = libraries/STM32FreeRTOS
+	url = https://github.com/RoboTech-srl/STM32FreeRTOS.git
