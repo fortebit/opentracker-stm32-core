@@ -5,6 +5,7 @@ menu.opt=Optimize
 menu.rtlib=C Runtime Library
 menu.upload_method=Upload method
 menu.modem=Modem Model
+menu.hwrev=Board Revision
 
 ################################################################################
 # OPENTRACKER_V3 board
@@ -19,7 +20,7 @@ opentracker_3.pid.0=0x5711
 
 opentracker_3.build.core=arduino
 opentracker_3.build.board=OPENTRACKER_V3
-opentracker_3.build.extra_flags=-D{build.product_line} {build.enable_usb} -DALL_HWSERIAL -DSERIAL_RX_BUFFER_SIZE=256 -DOPENTRACKER_HW_REV=0x0300 {build.modem_flags}
+opentracker_3.build.extra_flags=-D{build.product_line} {build.enable_usb} -DALL_HWSERIAL -DSERIAL_RX_BUFFER_SIZE=256 {build.hw_rev} {build.modem_flags}
 opentracker_3.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 opentracker_3.build.board=OPENTRACKER_V3
 opentracker_3.build.series=STM32L4xx
@@ -30,6 +31,13 @@ opentracker_3.build.cmsis_lib_gcc=arm_cortexM4l_math
 opentracker_3.node=""
 opentracker_3.upload.maximum_size=131072
 opentracker_3.upload.maximum_data_size=65536
+
+# Board Revision
+opentracker_3.menu.hwrev=Board Revision
+opentracker_3.menu.hwrev.R30=R3.0
+opentracker_3.menu.hwrev.R30.build.hw_rev=-DOPENTRACKER_HW_REV=0x0300 
+opentracker_3.menu.hwrev.R31=R3.1
+opentracker_3.menu.hwrev.R31.build.hw_rev=-DOPENTRACKER_HW_REV=0x0301
 
 # Modem menu
 opentracker_3.menu.modem=Modem Model

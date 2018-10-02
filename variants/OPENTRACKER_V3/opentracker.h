@@ -16,7 +16,6 @@
 #define PIN_C_PWR_GSM   PE2
 #define PIN_C_KILL_GSM  PD3
 
-//#define PIN_STANDBY_GPS NC
 //#define PIN_S_PPS_GPS   NC
 
 #define PIN_C_IN1_PD    PE8
@@ -84,6 +83,7 @@
 #define PIN_RING_GSM    PD1
 
 #define PIN_RESET_GPS   PD7
+#define PIN_STANDBY_GPS PC6
 #else
 #define PIN_EXT_GPIO1   PB5
 #define PIN_EXT_GPIO2   PD7
@@ -92,10 +92,10 @@
 #define PIN_RING_GSM    PA15
 
 #define PIN_RESET_GPS   PH3
+#define PIN_C_OUT_ENA   PC6
 #endif
 
 #define PIN_S_ACC_INT1  PD11
-#define PIN_C_OUT_ENA   PC6
 
 #define PIN_C_ACC_CS    PD10
 #define PIN_C_OUT_CS    PE12
@@ -110,4 +110,7 @@
 #endif
 #ifndef MODEM_BG96
 #define MODEM_BG96      0
+#endif
+#ifndef MODEM_EG91
+#define MODEM_EG91      0
 #endif
