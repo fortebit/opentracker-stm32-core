@@ -64,7 +64,9 @@
 #define PIN_EXT_NS0     PB12
 
 #define PIN_S_BUTTON    PE6
-#define PIN_C_POWERMODE PE4
+#define PIN_S_BATT_SHDN PE4
+#define PIN_S_CHRG_STAT PA8
+#define PIN_C_CHRG_ENA  PH3
 #define PIN_C_5V_ENABLE PE5
 #define PIN_EXT_AUDIO   PD4
 #define PIN_C_ANTON     PD0
