@@ -14,7 +14,6 @@
 #define PIN_STATUS_GSM  PB4
 #define PIN_WAKE_GSM    PE3
 #define PIN_C_PWR_GSM   PE2
-#define PIN_C_KILL_GSM  PD3
 
 //#define PIN_S_PPS_GPS   NC
 
@@ -64,37 +63,70 @@
 #define PIN_EXT_NS0     PB12
 
 #define PIN_S_BUTTON    PE6
-#define PIN_S_BATT_SHDN PE4
-#define PIN_S_CHRG_STAT PA8
-#define PIN_C_CHRG_ENA  PH3
 #define PIN_C_5V_ENABLE PE5
-#define PIN_EXT_AUDIO   PD4
-#define PIN_C_ANTON     PD0
-#define PIN_S_USBVBUS   PC7
 
 #define PIN_EXT_INT     PD15
-#define PIN_EXT_RST     PC4
 #define PIN_EXT_DAC1    PA4
 #define PIN_EXT_DAC2    PA5
 
-#if OPENTRACKER_HW_REV > 0x0300
+#if OPENTRACKER_HW_REV >= 0x0302
+#define PIN_EXT_GPIO1   PC7
+#define PIN_EXT_GPIO2   PD3
+#define PIN_EXT_PWM     PA15
+
+#define PIN_RING_GSM    PD1
+#define PIN_C_KILL_GSM  PB5
+
+#define PIN_RESET_GPS   PD7
+#define PIN_STANDBY_GPS PC6
+#define PIN_C_ANTON     PH3
+
+#define AIN_BATT_VOLT   PC4
+
+#define PIN_EXT_RST     PD0
+#define PIN_S_USBVBUS   PD13
+
+#define PIN_S_BATT_SHDN PE4
+#define PIN_S_CHRG_STAT PD4
+#define PIN_C_CHRG_PROG PA8
+
+#elif OPENTRACKER_HW_REV == 0x0301
 #define PIN_EXT_GPIO1   PD13
 #define PIN_EXT_GPIO2   PB5
 #define PIN_EXT_PWM     PA15
 
 #define PIN_RING_GSM    PD1
+#define PIN_C_KILL_GSM  PD3
 
 #define PIN_RESET_GPS   PD7
 #define PIN_STANDBY_GPS PC6
-#else
+#define PIN_C_ANTON     PD0
+
+#define PIN_EXT_RST     PC4
+#define PIN_EXT_AUDIO   PD4
+#define PIN_S_USBVBUS   PC7
+
+#define PIN_S_BATT_SHDN PE4
+#define PIN_S_CHRG_STAT PA8
+#define PIN_C_CHRG_ENA  PH3
+
+#elif OPENTRACKER_HW_REV == 0x0300
 #define PIN_EXT_GPIO1   PB5
 #define PIN_EXT_GPIO2   PD7
 #define PIN_EXT_PWM     PD13
 
 #define PIN_RING_GSM    PA15
+#define PIN_C_KILL_GSM  PD3
 
 #define PIN_RESET_GPS   PH3
+#define PIN_C_ANTON     PD0
+
+#define PIN_EXT_RST     PC4
+#define PIN_EXT_AUDIO   PD4
+#define PIN_S_USBVBUS   PC7
 #define PIN_C_OUT_ENA   PC6
+#else
+#warning "Unknown board revision!"
 #endif
 
 #define PIN_S_ACC_INT1  PD11

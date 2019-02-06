@@ -38,6 +38,8 @@ opentracker_3.menu.hwrev.R30=R3.0
 opentracker_3.menu.hwrev.R30.build.hw_rev=-DOPENTRACKER_HW_REV=0x0300 
 opentracker_3.menu.hwrev.R31=R3.1
 opentracker_3.menu.hwrev.R31.build.hw_rev=-DOPENTRACKER_HW_REV=0x0301
+opentracker_3.menu.hwrev.R32=R3.2
+opentracker_3.menu.hwrev.R32.build.hw_rev=-DOPENTRACKER_HW_REV=0x0302
 
 # Modem menu
 opentracker_3.menu.modem=Modem Model
