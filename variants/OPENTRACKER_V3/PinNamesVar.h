@@ -23,3 +23,16 @@
 #ifdef PWR_WAKEUP_PIN8
     SYS_WKUP8 = NC,
 #endif
+
+#ifdef ADC_CHANNEL_0
+    ADC_CH0 = 0xA0,
+#endif
+#ifdef ADC_CHANNEL_VBAT
+    ADC_VBAT = 0xA1,
+#endif
+#ifdef ADC_CHANNEL_VREFINT
+    ADC_VREF = 0xA2,
+#endif
+#ifdef ADC_CHANNEL_TEMPSENSOR
+    ADC_VTEMP = 0xA3,
+#endif
