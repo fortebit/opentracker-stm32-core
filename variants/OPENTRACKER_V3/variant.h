@@ -148,6 +148,9 @@ PC0_2,
 PC1_2,
 PC2_2,
 PC3_2,
+VREF,
+VTEMP,
+VBAT,
 
   PEND
 };
@@ -155,7 +158,7 @@ PC3_2,
 // This must be a literal with the same value as PEND
 // It is used with preprocessor tests (e.g. #if NUM_DIGITAL_PINS > 3)
 // so an enum will not work.
-#define NUM_DIGITAL_PINS        92
+#define NUM_DIGITAL_PINS        95
 
 // Allow to define Arduino style alias for analog input pin number --> Ax
 // All pins are digital, analog inputs are a subset of digital pins
@@ -172,6 +175,9 @@ PC3_2,
 // Define digital pin number of the first analog input  (i.e. which digital pin is A0)
 // First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS
 #define NUM_ANALOG_FIRST        83
+
+//ADC sampling time
+#define SAMPLINGTIME ADC_SAMPLETIME_640CYCLES_5
 
 //ADC resolution is 12bits
 #define ADC_RESOLUTION          12

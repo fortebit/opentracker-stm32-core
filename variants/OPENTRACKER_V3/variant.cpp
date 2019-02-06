@@ -132,6 +132,9 @@ PC_0,
 PC_1,
 PC_2,
 PC_3,
+ADC_VREF,
+ADC_VTEMP,
+ADC_VBAT,
 };
 
 #ifdef __cplusplus

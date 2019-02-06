@@ -50,6 +50,8 @@
 #include "analog.h"
 #include "timer.h"
 #include "PinAF_STM32F1.h"
+// Specific defines in the variant
+#include "variant.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -69,6 +71,7 @@
 /** @addtogroup STM32F4xx_System_Private_Defines
   * @{
   */
+#ifndef SAMPLINGTIME
 #if defined(ADC_SAMPLETIME_15CYCLES)
 #define SAMPLINGTIME        ADC_SAMPLETIME_15CYCLES;
 #elif defined(ADC_SAMPLETIME_13CYCLES_5)
@@ -81,6 +84,7 @@
 #define SAMPLINGTIME        ADC_SAMPLETIME_12CYCLES_5;
 #else
 #error "ADC SAMPLINGTIME could not be defined"
+#endif
 #endif
 
 #ifndef STM32F1xx
