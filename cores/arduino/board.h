@@ -5,9 +5,6 @@
  * Core and peripherals registers definitions
 */
 #include "interrupt.h"
-#ifdef __cplusplus
-extern "C"{
-#endif // __cplusplus
 #include "analog.h"
 #include "clock.h"
 #include "core_callback.h"
@@ -23,6 +20,9 @@ extern "C"{
 #include "uart.h"
 #include "uart_emul.h"
 
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
 void init( void ) ;
 #ifdef __cplusplus
 }
