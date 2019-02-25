@@ -143,6 +143,25 @@ ADC_VBAT,
 
 // ----------------------------------------------------------------------------
 
+#include <board.h>
+#include "PinConfigured.h"
+extern "C" uint32_t g_anOutputPinConfigured[];
+
+void analogWritePWM(uint32_t ulPin, uint32_t ulValue, uint32_t ulMax, uint32_t ulFreq)
+{
+  uint8_t do_init = 0;
+  PinName p = digitalPinToPinName(ulPin);
+  if(pin_in_pinmap(p, PinMap_PWM)) {
+    if(is_pin_configured(p, g_anOutputPinConfigured) == false) {
+      do_init = 1;
+      set_pin_configured(p, g_anOutputPinConfigured);
+    }
+    pwm_start(p, ulFreq*ulMax, ulMax, ulValue, do_init);
+  }
+}
+
+// ----------------------------------------------------------------------------
+
 #ifdef __cplusplus
 extern "C" {
 #endif

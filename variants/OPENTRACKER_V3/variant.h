@@ -266,4 +266,8 @@ VBAT,
 
 #include "opentracker.h"
 
+#ifdef __cplusplus
+void analogWritePWM(uint32_t ulPin, uint32_t ulValue, uint32_t ulMax, uint32_t ulFreq);
+#endif
+
 #endif /* _VARIANT_ARDUINO_STM32_ */
