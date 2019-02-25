@@ -86,7 +86,7 @@
 #define PIN_EXT_RST     PD0
 #define PIN_S_USBVBUS   PD13
 
-#define PIN_S_BATT_SHDN PE4
+#define PIN_S_BATT_ENA  PE4
 #define PIN_S_CHRG_STAT PD4
 #define PIN_C_CHRG_PROG PA8
 
