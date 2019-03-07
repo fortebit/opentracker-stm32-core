@@ -33,7 +33,7 @@
 #if defined(HAL_UART_MODULE_ENABLED)
 #if defined(HAVE_HWSERIAL1) || defined(HAVE_HWSERIAL2) || defined(HAVE_HWSERIAL3) ||\
     defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
-    defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL8) ||\
+    defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL9) ||\
     defined(HAVE_HWSERIAL10) || defined(HAVE_HWSERIALLP1)
 // SerialEvent functions are weak, so when the user doesn't define them,
 // the linker just sets their address to 0 (which is checked below).
@@ -358,7 +358,7 @@ void HardwareSerial::flush()
 
   while((_serial.tx_head != _serial.tx_tail)) {
     // nop, the interrupt handler will free up space for us
-	__WFI();
+    __WFI();
   }
   // If we get here, nothing is queued anymore (DRIE is disabled) and
   // the hardware finished tranmission (TXC is set).
@@ -374,7 +374,7 @@ size_t HardwareSerial::write(uint8_t c)
   // wait for the interrupt handler to empty it a bit
   while (i == _serial.tx_tail) {
     // nop, the interrupt handler will free up space for us
-	__WFI();
+    __WFI();
   }
 
   _serial.tx_buff[_serial.tx_head] = c;

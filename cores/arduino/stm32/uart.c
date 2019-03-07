@@ -466,7 +466,7 @@ void uart_deinit(serial_t *obj)
         __HAL_RCC_UART9_CLK_DISABLE();
         break;
 #endif
-#if defined(HAVE_HWSERIAL9)
+#if defined(HAVE_HWSERIAL10)
     case 9:
         __HAL_RCC_UART10_FORCE_RESET();
         __HAL_RCC_UART10_RELEASE_RESET();
@@ -901,18 +901,18 @@ void USART3_IRQHandler(void)
 #endif
 #if defined(STM32F0xx)
 /* USART3_4_IRQn */
-#if defined(ENABLE_HWSERIAL3)
+#if defined(ENABLE_HWSERIAL4)
   if(uart_handlers[3] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[3]);
   }
 #endif
 #if defined(STM32F030xC)
-#if defined(ENABLE_HWSERIAL4)
+#if defined(ENABLE_HWSERIAL5)
   if(uart_handlers[4] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[4]);
   }
 #endif
-#if defined(ENABLE_HWSERIAL5)
+#if defined(ENABLE_HWSERIAL6)
   if(uart_handlers[5] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[5]);
   }
