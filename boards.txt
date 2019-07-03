@@ -34,12 +34,14 @@ polaris_1.upload.maximum_data_size=65536
 
 # Board Revision
 polaris_1.menu.hwrev=Board Revision
-polaris_1.menu.hwrev.R30=R3.0
-polaris_1.menu.hwrev.R30.build.hw_rev=-DOPENTRACKER_HW_REV=0x0300 
-polaris_1.menu.hwrev.R31=R3.1
-polaris_1.menu.hwrev.R31.build.hw_rev=-DOPENTRACKER_HW_REV=0x0301
-polaris_1.menu.hwrev.R32=R3.2
-polaris_1.menu.hwrev.R32.build.hw_rev=-DOPENTRACKER_HW_REV=0x0302
+polaris_1.menu.hwrev.V10=Polaris R1.0
+polaris_1.menu.hwrev.V10.build.hw_rev=-DOPENTRACKER_HW_REV=0x0303 -DPOLARIS_HW_REV=0x0100 
+polaris_1.menu.hwrev.R30=Pre-production (R3.0)
+polaris_1.menu.hwrev.R30.build.hw_rev=-DOPENTRACKER_HW_REV=0x0300 -DPOLARIS_HW_REV=0x0000 
+polaris_1.menu.hwrev.R31=Pre-production (R3.1)
+polaris_1.menu.hwrev.R31.build.hw_rev=-DOPENTRACKER_HW_REV=0x0301 -DPOLARIS_HW_REV=0x0001
+polaris_1.menu.hwrev.R32=Pre-production (R3.2)
+polaris_1.menu.hwrev.R32.build.hw_rev=-DOPENTRACKER_HW_REV=0x0302 -DPOLARIS_HW_REV=0x0002
 
 # Modem menu
 polaris_1.menu.modem=Modem Model
