@@ -8,101 +8,101 @@ menu.modem=Modem Model
 menu.hwrev=Board Revision
 
 ################################################################################
-# OPENTRACKER_V3 board
+# POLARIS_V1 board
 # Support: USB CDC, Serial1/2/3/11 (USART1 on PA9/PA10, USART2 on PD5/PD6, USART3 on PD8/PD9, LPUART1 on PB10/PB11)
 
-opentracker_3.name=Geolink OpenTracker v3
+polaris_1.name=Polaris v1.0
 
-opentracker_3.build.vid=0x0483
-opentracker_3.build.pid=0x5711
-opentracker_3.vid.0=0x0483
-opentracker_3.pid.0=0x5711
+polaris_1.build.vid=0x0483
+polaris_1.build.pid=0x5711
+polaris_1.vid.0=0x0483
+polaris_1.pid.0=0x5711
 
-opentracker_3.build.core=arduino
-opentracker_3.build.board=OPENTRACKER_V3
-opentracker_3.build.extra_flags=-D{build.product_line} {build.enable_usb} -DALL_HWSERIAL -DSERIAL_RX_BUFFER_SIZE=256 -DSERIAL_TX_BUFFER_SIZE=256 {build.hw_rev} {build.modem_flags}
-opentracker_3.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-opentracker_3.build.board=OPENTRACKER_V3
-opentracker_3.build.series=STM32L4xx
-opentracker_3.build.product_line=STM32L433xx
-opentracker_3.build.variant=OPENTRACKER_V3
-opentracker_3.build.cmsis_lib_gcc=arm_cortexM4l_math
+polaris_1.build.core=arduino
+polaris_1.build.board=POLARIS_V1
+polaris_1.build.extra_flags=-D{build.product_line} {build.enable_usb} -DALL_HWSERIAL -DSERIAL_RX_BUFFER_SIZE=256 -DSERIAL_TX_BUFFER_SIZE=256 {build.hw_rev} {build.modem_flags}
+polaris_1.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+polaris_1.build.board=POLARIS_V1
+polaris_1.build.series=STM32L4xx
+polaris_1.build.product_line=STM32L433xx
+polaris_1.build.variant=POLARIS_V1
+polaris_1.build.cmsis_lib_gcc=arm_cortexM4l_math
 
-opentracker_3.node=""
-opentracker_3.upload.maximum_size=131072
-opentracker_3.upload.maximum_data_size=65536
+polaris_1.node=""
+polaris_1.upload.maximum_size=131072
+polaris_1.upload.maximum_data_size=65536
 
 # Board Revision
-opentracker_3.menu.hwrev=Board Revision
-opentracker_3.menu.hwrev.R30=R3.0
-opentracker_3.menu.hwrev.R30.build.hw_rev=-DOPENTRACKER_HW_REV=0x0300 
-opentracker_3.menu.hwrev.R31=R3.1
-opentracker_3.menu.hwrev.R31.build.hw_rev=-DOPENTRACKER_HW_REV=0x0301
-opentracker_3.menu.hwrev.R32=R3.2
-opentracker_3.menu.hwrev.R32.build.hw_rev=-DOPENTRACKER_HW_REV=0x0302
+polaris_1.menu.hwrev=Board Revision
+polaris_1.menu.hwrev.R30=R3.0
+polaris_1.menu.hwrev.R30.build.hw_rev=-DOPENTRACKER_HW_REV=0x0300 
+polaris_1.menu.hwrev.R31=R3.1
+polaris_1.menu.hwrev.R31.build.hw_rev=-DOPENTRACKER_HW_REV=0x0301
+polaris_1.menu.hwrev.R32=R3.2
+polaris_1.menu.hwrev.R32.build.hw_rev=-DOPENTRACKER_HW_REV=0x0302
 
 # Modem menu
-opentracker_3.menu.modem=Modem Model
-opentracker_3.menu.modem.M95=M95 (Quad-Band 2.5G)
-opentracker_3.menu.modem.M95.build.modem_flags=-DMODEM_M95=1
-opentracker_3.menu.modem.UG96=UG96 (Penta-Band 3G)
-opentracker_3.menu.modem.UG96.build.modem_flags=-DMODEM_UG96=1
-opentracker_3.menu.modem.EG91=EG91 (Multi-Band 4G)
-opentracker_3.menu.modem.EG91.build.modem_flags=-DMODEM_EG91=1
-opentracker_3.menu.modem.BG96=BG96 (LWPA/NB-IoT 2.5G/4G)
-opentracker_3.menu.modem.BG96.build.modem_flags=-DMODEM_BG96=1
+polaris_1.menu.modem=Modem Model
+polaris_1.menu.modem.M95=M95 (Quad-Band 2.5G)
+polaris_1.menu.modem.M95.build.modem_flags=-DMODEM_M95=1
+polaris_1.menu.modem.UG96=UG96 (Penta-Band 3G)
+polaris_1.menu.modem.UG96.build.modem_flags=-DMODEM_UG96=1
+polaris_1.menu.modem.EG91=EG91 (Multi-Band 4G)
+polaris_1.menu.modem.EG91.build.modem_flags=-DMODEM_EG91=1
+polaris_1.menu.modem.BG96=BG96 (LWPA/NB-IoT 2.5G/4G)
+polaris_1.menu.modem.BG96.build.modem_flags=-DMODEM_BG96=1
 
 # Upload menu
-opentracker_3.menu.upload_method.STM32CubeDFU=STM32CubeProgrammer (DFU)
-opentracker_3.menu.upload_method.STM32CubeDFU.upload.protocol=DFU
-opentracker_3.menu.upload_method.STM32CubeDFU.upload.tool=stm32cube_dfu
-opentracker_3.menu.upload_method.STM32CubeDFU.upload.use_1200bps_touch=true
-opentracker_3.menu.upload_method.STLink=STLink
-opentracker_3.menu.upload_method.STLink.upload.protocol=STLink
-opentracker_3.menu.upload_method.STLink.upload.tool=stlink_upload
+polaris_1.menu.upload_method.STM32CubeDFU=STM32CubeProgrammer (DFU)
+polaris_1.menu.upload_method.STM32CubeDFU.upload.protocol=DFU
+polaris_1.menu.upload_method.STM32CubeDFU.upload.tool=stm32cube_dfu
+polaris_1.menu.upload_method.STM32CubeDFU.upload.use_1200bps_touch=true
+polaris_1.menu.upload_method.STLink=STLink
+polaris_1.menu.upload_method.STLink.upload.protocol=STLink
+polaris_1.menu.upload_method.STLink.upload.tool=stlink_upload
 
 # USB
-opentracker_3.menu.usb.CDC=CDC
-opentracker_3.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
-opentracker_3.menu.usb.none=None
+polaris_1.menu.usb.CDC=CDC
+polaris_1.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+polaris_1.menu.usb.none=None
 
 # Optimizations
-opentracker_3.menu.opt.osstd=Smallest (-Os default)
-opentracker_3.menu.opt.osstd.build.flags.optimize=-Os
-opentracker_3.menu.opt.osstd.build.flags.ldspecs=
-opentracker_3.menu.opt.oslto=Smallest (-Os) with LTO
-opentracker_3.menu.opt.oslto.build.flags.optimize=-Os -flto
-opentracker_3.menu.opt.oslto.build.flags.ldspecs=-flto
-opentracker_3.menu.opt.o1std=Fast (-O1)
-opentracker_3.menu.opt.o1std.build.flags.optimize=-O1
-opentracker_3.menu.opt.o1std.build.flags.ldspecs=
-opentracker_3.menu.opt.o1lto=Fast (-O1) with LTO
-opentracker_3.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-opentracker_3.menu.opt.o1lto.build.flags.ldspecs=-flto
-opentracker_3.menu.opt.o2std=Faster (-O2)
-opentracker_3.menu.opt.o2std.build.flags.optimize=-O2
-opentracker_3.menu.opt.o2std.build.flags.ldspecs=
-opentracker_3.menu.opt.o2lto=Faster (-O2) with LTO
-opentracker_3.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-opentracker_3.menu.opt.o2lto.build.flags.ldspecs=-flto
-opentracker_3.menu.opt.o3std=Fastest (-O3)
-opentracker_3.menu.opt.o3std.build.flags.optimize=-O3
-opentracker_3.menu.opt.o3std.build.flags.ldspecs=
-opentracker_3.menu.opt.o3lto=Fastest (-O3) with LTO
-opentracker_3.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-opentracker_3.menu.opt.o3lto.build.flags.ldspecs=-flto
-opentracker_3.menu.opt.ogstd=Debug (-g)
-opentracker_3.menu.opt.ogstd.build.flags.optimize=-g -Og
-opentracker_3.menu.opt.ogstd.build.flags.ldspecs=
+polaris_1.menu.opt.osstd=Smallest (-Os default)
+polaris_1.menu.opt.osstd.build.flags.optimize=-Os
+polaris_1.menu.opt.osstd.build.flags.ldspecs=
+polaris_1.menu.opt.oslto=Smallest (-Os) with LTO
+polaris_1.menu.opt.oslto.build.flags.optimize=-Os -flto
+polaris_1.menu.opt.oslto.build.flags.ldspecs=-flto
+polaris_1.menu.opt.o1std=Fast (-O1)
+polaris_1.menu.opt.o1std.build.flags.optimize=-O1
+polaris_1.menu.opt.o1std.build.flags.ldspecs=
+polaris_1.menu.opt.o1lto=Fast (-O1) with LTO
+polaris_1.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+polaris_1.menu.opt.o1lto.build.flags.ldspecs=-flto
+polaris_1.menu.opt.o2std=Faster (-O2)
+polaris_1.menu.opt.o2std.build.flags.optimize=-O2
+polaris_1.menu.opt.o2std.build.flags.ldspecs=
+polaris_1.menu.opt.o2lto=Faster (-O2) with LTO
+polaris_1.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+polaris_1.menu.opt.o2lto.build.flags.ldspecs=-flto
+polaris_1.menu.opt.o3std=Fastest (-O3)
+polaris_1.menu.opt.o3std.build.flags.optimize=-O3
+polaris_1.menu.opt.o3std.build.flags.ldspecs=
+polaris_1.menu.opt.o3lto=Fastest (-O3) with LTO
+polaris_1.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+polaris_1.menu.opt.o3lto.build.flags.ldspecs=-flto
+polaris_1.menu.opt.ogstd=Debug (-g)
+polaris_1.menu.opt.ogstd.build.flags.optimize=-g -Og
+polaris_1.menu.opt.ogstd.build.flags.ldspecs=
 
 # C Runtime Library
-opentracker_3.menu.rtlib.nano=Newlib Nano (default)
-opentracker_3.menu.rtlib.nano.build.flags.ldspecs=--specs=nano.specs
-opentracker_3.menu.rtlib.nanofp=Newlib Nano + Float Printf
-opentracker_3.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-opentracker_3.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-opentracker_3.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-opentracker_3.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-opentracker_3.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-opentracker_3.menu.rtlib.full=Newlib Standard
-opentracker_3.menu.rtlib.full.build.flags.ldspecs=
+polaris_1.menu.rtlib.nano=Newlib Nano (default)
+polaris_1.menu.rtlib.nano.build.flags.ldspecs=--specs=nano.specs
+polaris_1.menu.rtlib.nanofp=Newlib Nano + Float Printf
+polaris_1.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+polaris_1.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+polaris_1.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+polaris_1.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+polaris_1.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+polaris_1.menu.rtlib.full=Newlib Standard
+polaris_1.menu.rtlib.full.build.flags.ldspecs=
