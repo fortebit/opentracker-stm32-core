@@ -259,8 +259,9 @@ VBAT,
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
 #define SERIAL_PORT_MONITOR     Serial
-#define SERIAL_PORT_HARDWARE    Serial
-#define SERIAL_PORT_HARDWARE_OPEN   Serial11
+#define SERIAL_PORT_USBVIRTUAL	Serial
+#define SERIAL_PORT_HARDWARE    SerialLP1
+#define SERIAL_PORT_HARDWARE_OPEN   SerialLP1
 #define SERIAL_PORT_HARDWARE_OPEN1  Serial3
 #endif
 
