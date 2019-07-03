@@ -1,4 +1,4 @@
-# Fortebit Polaris - Arduino Core (STM32 Architecture) [![GitHub release](https://img.shields.io/github/release/geolink/opentracker-stm32-core.svg)](https://github.com/fortebit/fortebit-openiot-stm32-core/releases/latest)
+# Fortebit Polaris - Arduino Core (STM32 Architecture) [![GitHub release](https://img.shields.io/github/release/fortebit/fortebit-openiot-stm32-core.svg)](https://github.com/fortebit/fortebit-openiot-stm32-core/releases/latest)
 
 This repository contains the source code and configuration files of the Arduino Core for STMicroelectronics's STM32 Series of microcontrollers and board support files for the [Fortebit Polaris](https://fortebit.tech/open-iot-platform) board.
 
