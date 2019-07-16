@@ -84,7 +84,11 @@
 #define AIN_BATT_VOLT   PC4
 
 #define PIN_EXT_RST     PD0
+#if OPENTRACKER_HW_REV >= 0x0303
+#define PIN_USER_LED    PD13
+#else
 #define PIN_S_USBVBUS   PD13
+#endif
 
 #define PIN_S_BATT_ENA  PE4
 #define PIN_S_CHRG_STAT PD4
