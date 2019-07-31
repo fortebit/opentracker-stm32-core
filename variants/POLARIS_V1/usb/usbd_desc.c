@@ -87,7 +87,22 @@
 #ifdef USBD_USE_CDC
 #define USBD_PID_FS     22336
 #define USBD_PRODUCT_STRING_FS     "STM32 Virtual ComPort"
+#ifdef POLARIS_HW_REV
+// With Polaris use a different serial number for each modem variant
+#if MODEM_UG96
+#define USBD_SERIALNUMBER_STRING_FS     "POLARIS10V3G"
+#elif MODEM_M95
+#define USBD_SERIALNUMBER_STRING_FS     "POLARIS10V2G"
+#elif MODEM_BG96
+#define USBD_SERIALNUMBER_STRING_FS     "POLARIS10VNB"
+#elif MODEM_EG91
+#define USBD_SERIALNUMBER_STRING_FS     "POLARIS10V4G"
+#else
 #define USBD_SERIALNUMBER_STRING_FS     "00000000001A"
+#endif
+#else
+#define USBD_SERIALNUMBER_STRING_FS     "00000000001A"
+#endif
 #define USBD_CONFIGURATION_STRING_FS     "CDC Config"
 #define USBD_INTERFACE_STRING_FS     "CDC Interface"
 
