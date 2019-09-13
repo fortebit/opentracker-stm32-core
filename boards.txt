@@ -17,31 +17,43 @@ polaris_1.build.vid=0x0483
 polaris_1.build.pid=0x5711
 polaris_1.vid.0=0x0483
 polaris_1.pid.0=0x5711
+polaris_1.build.usb_manufacturer="Fortebit"
 
 polaris_1.build.core=arduino
 polaris_1.build.board=POLARIS_V1
-polaris_1.build.extra_flags=-D{build.product_line} {build.enable_usb} -DALL_HWSERIAL -DSERIAL_RX_BUFFER_SIZE=256 -DSERIAL_TX_BUFFER_SIZE=256 {build.hw_rev} {build.modem_flags}
-polaris_1.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-polaris_1.build.board=POLARIS_V1
-polaris_1.build.series=STM32L4xx
-polaris_1.build.product_line=STM32L433xx
 polaris_1.build.variant=POLARIS_V1
+polaris_1.build.series=STM32L4xx
+polaris_1.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+polaris_1.build.extra_flags=-D{build.product_line} {build.enable_usb} -DALL_HWSERIAL -DSERIAL_RX_BUFFER_SIZE=256 -DSERIAL_TX_BUFFER_SIZE=256 {build.hw_rev} {build.modem_flags}
 polaris_1.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 polaris_1.node=""
-polaris_1.upload.maximum_size=131072
-polaris_1.upload.maximum_data_size=65536
+polaris_1.upload.maximum_size=262144
+polaris_1.upload.maximum_data_size=163840
 
 # Board Revision
 polaris_1.menu.hwrev=Board Revision
 polaris_1.menu.hwrev.V10=Polaris R1.0
 polaris_1.menu.hwrev.V10.build.hw_rev=-DOPENTRACKER_HW_REV=0x0303 -DPOLARIS_HW_REV=0x0100 
-polaris_1.menu.hwrev.R30=Pre-production (R3.0)
-polaris_1.menu.hwrev.R30.build.hw_rev=-DOPENTRACKER_HW_REV=0x0300 -DPOLARIS_HW_REV=0x0000 
-polaris_1.menu.hwrev.R31=Pre-production (R3.1)
-polaris_1.menu.hwrev.R31.build.hw_rev=-DOPENTRACKER_HW_REV=0x0301 -DPOLARIS_HW_REV=0x0001
+polaris_1.menu.hwrev.V10.build.product_line=STM32L452xx
+polaris_1.menu.hwrev.V10.build.ldscript=ldscript452.ld
+
 polaris_1.menu.hwrev.R32=Pre-production (R3.2)
 polaris_1.menu.hwrev.R32.build.hw_rev=-DOPENTRACKER_HW_REV=0x0302 -DPOLARIS_HW_REV=0x0002
+polaris_1.menu.hwrev.R32.build.product_line=STM32L452xx
+polaris_1.menu.hwrev.R32.build.ldscript=ldscript452.ld
+
+polaris_1.menu.hwrev.R31=Pre-production (R3.1)
+polaris_1.menu.hwrev.R31.build.hw_rev=-DOPENTRACKER_HW_REV=0x0301 -DPOLARIS_HW_REV=0x0001
+polaris_1.menu.hwrev.R31.build.product_line=STM32L452xx
+polaris_1.menu.hwrev.R31.build.ldscript=ldscript452.ld
+
+polaris_1.menu.hwrev.R30=Pre-production (R3.0)
+polaris_1.menu.hwrev.R30.build.hw_rev=-DOPENTRACKER_HW_REV=0x0300 -DPOLARIS_HW_REV=0x0000 
+polaris_1.menu.hwrev.R30.build.product_line=STM32L433xx
+polaris_1.menu.hwrev.R30.build.ldscript=ldscript433.ld
+polaris_1.menu.hwrev.R30.upload.maximum_size=131072
+polaris_1.menu.hwrev.R30.upload.maximum_data_size=65536
 
 # Modem menu
 polaris_1.menu.modem=Modem Model
