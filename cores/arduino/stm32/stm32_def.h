@@ -55,7 +55,11 @@ void SystemClock_Config(void);
 
 void _Error_Handler(const char *, int);
 
+#ifdef NDEBUG
+#define Error_Handler() _Error_Handler(0,0) // don't put strings in exe
+#else
 #define Error_Handler() _Error_Handler(__FILE__, __LINE__)
+#endif
 
 #ifdef __cplusplus
 } // extern "C"
