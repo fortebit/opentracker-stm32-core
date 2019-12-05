@@ -174,6 +174,10 @@ void HAL_MspInit(void)
   __HAL_RCC_SYSCFG_CLK_ENABLE();
   __HAL_RCC_PWR_CLK_ENABLE();
 
+  /* Enable VBAT charging resistor */
+  LL_PWR_SetBattChargResistor(LL_PWR_BATT_CHARGRESISTOR_1_5K);
+  LL_PWR_EnableBatteryCharging();
+
   /* If we are back from Backup mode, make sure the RTC output is disabled, so
       that the main regulator will not be disabled again in endless loop */
 
