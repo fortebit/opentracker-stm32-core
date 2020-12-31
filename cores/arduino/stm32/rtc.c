@@ -315,7 +315,17 @@ void RTC_init(hourFormat_t format, sourceClock_t source)
   RtcHandle.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
 #endif /* STM32F1xx */
 
-  HAL_RTC_Init( &RtcHandle );
+  // Do only once for the lifetime of the RTC, because setting clock prescaler
+  // restarts the sub-seconds counter and the timer becomes inaccurate!
+  uint32_t noInit = RtcHandle.Instance->CR & RTC_CR_BKP;
+  __HAL_RTC_WRITEPROTECTION_DISABLE(&RtcHandle);
+  RtcHandle.Instance->CR |= RTC_CR_BKP;
+  __HAL_RTC_WRITEPROTECTION_ENABLE(&RtcHandle);
+
+  if (noInit)
+    RtcHandle.State = HAL_RTC_STATE_READY;
+  else
+    HAL_RTC_Init( &RtcHandle );
 
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
   /* Enable Direct Read of the calendar registers (not through Shadow) */
@@ -351,7 +361,18 @@ void RTC_SetOutput(uint32_t outMode, uint32_t outPolarity, uint32_t outTypePushP
   RtcHandle.Init.OutPutPolarity = outPolarity;
   RtcHandle.Init.OutPutType = outTypePushPull;
 #endif
-  HAL_RTC_Init( &RtcHandle );
+  //HAL_RTC_Init( &RtcHandle ); // DON'T CALL INIT AGAIN!
+  //Initialization would reset RTC sub-seconds counter, leading to loss of time counted!
+  uint32_t regCR = (RtcHandle.Instance->CR
+    & ~(RTC_CR_OSEL | RTC_CR_POL)) 
+    | (uint32_t)(RtcHandle.Init.OutPut | RtcHandle.Init.OutPutPolarity);
+  uint32_t regOR = (RtcHandle.Instance->OR
+    & ~(RTC_OR_ALARMOUTTYPE | RTC_OR_OUT_RMP))
+    | (uint32_t)(RtcHandle.Init.OutPutType | RtcHandle.Init.OutPutRemap);
+  __HAL_RTC_WRITEPROTECTION_DISABLE(&RtcHandle);
+  RtcHandle.Instance->CR = regCR;
+  RtcHandle.Instance->OR = regOR;
+  __HAL_RTC_WRITEPROTECTION_ENABLE(&RtcHandle);
 }
 
 /**
