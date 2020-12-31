@@ -22,3 +22,6 @@
 [submodule "libraries/STM32FreeRTOS"]
 	path = libraries/STM32FreeRTOS
 	url = https://github.com/RoboTech-srl/STM32FreeRTOS.git
+[submodule "libraries/STM32LowPower"]
+	path = libraries/STM32LowPower
+	url = https://github.com/RoboTech-srl/STM32LowPower/
