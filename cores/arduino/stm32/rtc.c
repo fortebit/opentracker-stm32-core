@@ -405,7 +405,7 @@ void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSe
       RTC_TimeStruct.TimeFormat = RTC_HOURFORMAT12_AM;
     }
 #if !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
-    RTC_TimeStruct.SubSeconds = subSeconds;
+    RTC_TimeStruct.SubSeconds = RtcHandle.Init.SynchPrediv - subSeconds * (RtcHandle.Init.SynchPrediv + 1) / 1000;
     RTC_TimeStruct.SecondFraction = 0;
 #else
     UNUSED(subSeconds);
@@ -449,7 +449,7 @@ void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *s
     }
 #if (!defined(STM32F2xx) && !defined(STM32L1xx)) || defined(STM32L1_ULPH)
     if(subSeconds != NULL) {
-      *subSeconds = RTC_TimeStruct.SubSeconds;
+      *subSeconds = (RtcHandle.Init.SynchPrediv - RTC_TimeStruct.SubSeconds) * 1000 / (RtcHandle.Init.SynchPrediv + 1);
     }
 #else
     UNUSED(subSeconds);
@@ -535,7 +535,7 @@ void RTC_StartAlarm(uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds
 #if !defined(STM32F1xx)
 #if !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
     RTC_AlarmStructure.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_SS14_10;
-    RTC_AlarmStructure.AlarmTime.SubSeconds = subSeconds;
+    RTC_AlarmStructure.AlarmTime.SubSeconds = RtcHandle.Init.SynchPrediv - subSeconds * (RtcHandle.Init.SynchPrediv + 1) / 1000;
 #else
     UNUSED(subSeconds);
 #endif /* !STM32F2xx && !STM32L1xx || STM32L1_ULPH */
@@ -628,7 +628,7 @@ void RTC_GetAlarm(uint8_t *day, uint8_t *hours, uint8_t *minutes, uint8_t *secon
     }
 #if !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
     if(subSeconds != NULL) {
-      *subSeconds = RTC_AlarmStructure.AlarmTime.SubSeconds;
+      *subSeconds = (RtcHandle.Init.SynchPrediv - RTC_AlarmStructure.AlarmTime.SubSeconds) * 1000 / (RtcHandle.Init.SynchPrediv + 1);
     }
 #else
     UNUSED(subSeconds);
