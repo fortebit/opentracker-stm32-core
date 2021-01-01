@@ -85,7 +85,7 @@ void LowPower_init(){
   * @param  mode: pin mode (edge or state). The configuration have to be compatible.
   * @retval None
   */
-void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode) {
+void LowPower_EnableWakeUpPin(uint32_t pin, int32_t mode) {
 #if !defined(PWR_WAKEUP_PIN1_HIGH)
   UNUSED(mode);
 #endif
@@ -165,7 +165,10 @@ void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode) {
         break;
 #endif /* PWR_WAKEUP_PIN8 */
     }
-    HAL_PWR_EnableWakeUpPin(wkup_pin);
+    if (mode == NOT_AN_INTERRUPT)
+      HAL_PWR_DisableWakeUpPin(wkup_pin);
+    else
+      HAL_PWR_EnableWakeUpPin(wkup_pin);
   }
 }
 
@@ -224,18 +227,13 @@ void LowPower_stop(){
 
   /* Exit Stop mode reset clocks */
   SystemClock_ConfigFromStop();
-#if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED)
-  if (WakeUpSerial != NULL) {
-    /* In case of WakeUp from UART, reset its clock source to HSI */
-    uart_config_lowpower(WakeUpSerial);
-    HAL_UARTEx_DisableStopMode(&WakeUpSerial->handle);
-  }
-#endif
+
   __enable_irq();
 
   HAL_Delay(10);
 
-  if (WakeUpUartCb != NULL) {
+  if (WakeUpUartCb != NULL && WakeUpSerial != NULL &&
+      (__HAL_UART_GET_FLAG(&WakeUpSerial->handle, UART_FLAG_WUF) != RESET)) {
     WakeUpUartCb();
   }
 }
@@ -291,16 +289,21 @@ void LowPower_EnableWakeUpUart(serial_t* serial, void (*FuncPtr)( void ) ) {
 #if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED)
   UART_WakeUpTypeDef WakeUpSelection;
   if(serial == NULL) {
+    // disable wakeup from UART
+    HAL_UARTEx_DisableStopMode(&WakeUpSerial->handle);
+    __HAL_UART_DISABLE_IT(&WakeUpSerial->handle, UART_IT_WUF);
+    WakeUpSerial = NULL;
+    WakeUpUartCb = NULL;
     return;
   }
   /* Save Uart handler and Serial object */
   WakeUpSerial = serial;
 
   /* make sure that no UART transfer is on-going */
-  while(__HAL_UART_GET_FLAG(&WakeUpSerial->handle, USART_ISR_BUSY) == SET);
+  while(__HAL_UART_GET_FLAG(&WakeUpSerial->handle, UART_FLAG_BUSY) == SET);
   /* make sure that UART is ready to receive
    * (test carried out again later in HAL_UARTEx_StopModeWakeUpSourceConfig) */
-  while(__HAL_UART_GET_FLAG(&WakeUpSerial->handle, USART_ISR_REACK) == RESET);
+  while(__HAL_UART_GET_FLAG(&WakeUpSerial->handle, UART_FLAG_REACK) == RESET);
 
   /* set the wake-up event:
    * specify wake-up on RXNE flag
